@@ -1,0 +1,11 @@
+# Mac related files
+.DS_Store
+
+# JetBrain files
+.idea/
+
+# python ignore files
+*__pycache__*
+
+# emacs buffer file
+*~
