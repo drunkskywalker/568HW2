@@ -53,14 +53,13 @@ int main() {
     return -1;
   }  //if
 
-  const char * message =
-      "GET / HTTP/1.1\r\nHost: www.google.com\r\nConnection: close\r\n\r\n";
+  const char * message = "GET / HTTP/1.1\r\nHost: www.google.com\r\nConnection: close\r\n\r\n";
   cout << "Client sent: " << message << endl;
   send(socket_fd, message, strlen(message), 0);
-  char buffer[1000];
-
-  recv(socket_fd, buffer, 1000, 0);
-  buffer[1000] = 0;
+  char buffer[5000];
+  memset(buffer, 5000, 0);
+  recv(socket_fd, buffer, 5000, 0);
+  buffer[5000] = 0;
   cout << "Client received: " << buffer << endl;
 
   freeaddrinfo(host_info_list);
