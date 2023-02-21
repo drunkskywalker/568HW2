@@ -14,37 +14,35 @@
 
 using namespace std;
 int main() {
-
   int status;
-  
 
   int recv_fd;
   struct addrinfo recv_host_info;
-  struct addrinfo * recv_host_info_list;  
+  struct addrinfo * recv_host_info_list;
   const char * recv_hostname = NULL;
   const char * recv_port = "1917";
-  
- memset(&recv_host_info, 0, sizeof(recv_host_info));
 
-  recv_host_info.ai_family   = AF_UNSPEC;
+  memset(&recv_host_info, 0, sizeof(recv_host_info));
+
+  recv_host_info.ai_family = AF_UNSPEC;
   recv_host_info.ai_socktype = SOCK_STREAM;
-  recv_host_info.ai_flags    = AI_PASSIVE;
+  recv_host_info.ai_flags = AI_PASSIVE;
 
   status = getaddrinfo(recv_hostname, recv_port, &recv_host_info, &recv_host_info_list);
   if (status != 0) {
     cerr << "Error: cannot get address info for host" << endl;
     cerr << "  (" << recv_hostname << "," << recv_port << ")" << endl;
     return -1;
-  } //if
+  }  //if
 
-  recv_fd = socket(recv_host_info_list->ai_family, 
-		     recv_host_info_list->ai_socktype, 
-		     recv_host_info_list->ai_protocol);
+  recv_fd = socket(recv_host_info_list->ai_family,
+                   recv_host_info_list->ai_socktype,
+                   recv_host_info_list->ai_protocol);
   if (recv_fd == -1) {
     cerr << "Error: cannot create socket" << endl;
     cerr << "  (" << recv_hostname << "," << recv_port << ")" << endl;
     return -1;
-  } //if
+  }  //if
 
   int yes = 1;
   status = setsockopt(recv_fd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int));
@@ -53,40 +51,51 @@ int main() {
     cerr << "Error: cannot bind socket" << endl;
     cerr << "  (" << recv_hostname << "," << recv_port << ")" << endl;
     return -1;
-  } //if
+  }  //if
 
   status = listen(recv_fd, 100);
   if (status == -1) {
-    cerr << "Error: cannot listen on socket" << endl; 
+    cerr << "Error: cannot listen on socket" << endl;
     cerr << "  (" << recv_hostname << "," << recv_port << ")" << endl;
     return -1;
-  } //if
+  }  //if
 
   cout << "Waiting for connection on port " << recv_port << endl;
   struct sockaddr_storage socket_addr;
   socklen_t socket_addr_len = sizeof(socket_addr);
   int client_connection_fd;
-  client_connection_fd = accept(recv_fd, (struct sockaddr *)&socket_addr, &socket_addr_len);
+  client_connection_fd =
+      accept(recv_fd, (struct sockaddr *)&socket_addr, &socket_addr_len);
   if (client_connection_fd == -1) {
     cerr << "Error: cannot accept connection on socket" << endl;
     return -1;
-  } //if  
-  
+  }  //if
+
+  free(recv_host_info_list);
+
+  int socket_fd;
+  struct addrinfo host_info;
+  struct addrinfo * host_info_list;
+  int x, y;
+  recv(client_connection_fd, &x, sizeof(int), 0);
+  char dest_hostname[x];
+  recv(client_connection_fd, dest_hostname, x, 0);
+  dest_hostname[x] = 0;
+  cout << "Server received: " << dest_hostname << endl;
+
+  recv(client_connection_fd, &y, sizeof(int), 0);
+
+  char dest_port[y];
+
+  recv(client_connection_fd, dest_port, y, 0);
+  dest_port[y] = 0;
+  cout << "Server received: " << dest_port << endl;
+
   char buffer[65535];
   recv(client_connection_fd, buffer, 65535, 0);
   buffer[65535] = 0;
 
   cout << "Server received: " << buffer << endl;
-  
-  free(recv_host_info_list);
-  
-  
-  int socket_fd;
-  struct addrinfo host_info;
-  struct addrinfo * host_info_list;
-  const char * dest_hostname = "www.google.com";
-  const char * dest_port = "80";  
-  
   memset(&host_info, 0, sizeof(host_info));
   host_info.ai_family = AF_UNSPEC;
   host_info.ai_socktype = SOCK_STREAM;
@@ -117,20 +126,18 @@ int main() {
   }  //if
 
   //const char * message = "GET / HTTP/1.1\r\nHost: www.google.com\r\nConnection: close\r\n\r\n";
-  cout << "Client sent: " << buffer << endl;
+  cout << "Sent to target: " << buffer << endl;
   send(socket_fd, buffer, strlen(buffer), 0);
 
-  memset(buffer, 65535, 0);
   recv(socket_fd, buffer, 65535, 0);
   buffer[65535] = 0;
-  cout << "Client received: " << buffer << endl;
-  
-  
+  cout << "Received from target: " << endl << buffer << endl;
+
   send(client_connection_fd, buffer, 65535, 0);
-  cout << "Server sent: " << buffer << endl;
+
   freeaddrinfo(host_info_list);
 
-// close(socket_fd);
+  // close(socket_fd);
 
   return 0;
 }

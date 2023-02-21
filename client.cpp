@@ -15,7 +15,6 @@ int main() {
   const char * hostname = "0";
   const char * port = "1917";
 
-
   memset(&host_info, 0, sizeof(host_info));
   host_info.ai_family = AF_UNSPEC;
   host_info.ai_socktype = SOCK_STREAM;
@@ -46,13 +45,22 @@ int main() {
     return -1;
   }  //if
 
-  const char * message = "GET / HTTP/1.1\r\nHost: www.google.com\r\nConnection: close\r\n\r\n";
+  const char * message =
+      "GET / HTTP/1.1\r\nHost: www.bing.com\r\nConnection: close\r\n\r\n";
   cout << "Client sent: " << message << endl;
+
+  const char * target_hostname = "www.bing.com";
+  const char * target_port = "80";
+  int x = strlen(target_hostname);
+  send(socket_fd, &x, sizeof(int), 0);
+  send(socket_fd, target_hostname, strlen(target_hostname), 0);
+  int y = strlen(target_port);
+  send(socket_fd, &y, sizeof(int), 0);
+  send(socket_fd, target_port, strlen(target_port), 0);
   send(socket_fd, message, strlen(message), 0);
   char buffer[65535];
 
-
- recv(socket_fd, buffer, 65535, 0);
+  recv(socket_fd, buffer, 65535, 0);
   buffer[65535] = 0;
   cout << "Client received: " << buffer << endl;
 
