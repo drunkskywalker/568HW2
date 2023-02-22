@@ -45,10 +45,9 @@ int main() {
     return -1;
   }  //if
 
-  const char * message =
-      "GET / HTTP/1.1\r\nHost: www.bing.com\r\nConnection: close\r\n\r\n";
+  const char * message = "GET /forms/post HTTP/1.1\r\nHost: www.httpbin.org\r\n\r\n";
   cout << "Client sent: " << message << endl;
-
+  /*
   const char * target_hostname = "www.bing.com";
   const char * target_port = "80";
   int x = strlen(target_hostname);
@@ -57,7 +56,10 @@ int main() {
   int y = strlen(target_port);
   send(socket_fd, &y, sizeof(int), 0);
   send(socket_fd, target_port, strlen(target_port), 0);
+  
+  */
   send(socket_fd, message, strlen(message), 0);
+
   char buffer[65535];
 
   recv(socket_fd, buffer, 65535, 0);

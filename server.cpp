@@ -13,6 +13,7 @@
 #include <string>
 
 using namespace std;
+
 int main() {
   int status;
 
@@ -73,29 +74,33 @@ int main() {
 
   free(recv_host_info_list);
 
+  /*
   int socket_fd;
   struct addrinfo host_info;
   struct addrinfo * host_info_list;
   int x, y;
   recv(client_connection_fd, &x, sizeof(int), 0);
   char dest_hostname[x];
+  memset(dest_hostname, 0, x);
   recv(client_connection_fd, dest_hostname, x, 0);
   dest_hostname[x] = 0;
   cout << "Server received: " << dest_hostname << endl;
-
+  
   recv(client_connection_fd, &y, sizeof(int), 0);
 
   char dest_port[y];
-
+  memset(dest_port, 0, y);
+  
   recv(client_connection_fd, dest_port, y, 0);
   dest_port[y] = 0;
   cout << "Server received: " << dest_port << endl;
-
+  */
   char buffer[65535];
   recv(client_connection_fd, buffer, 65535, 0);
   buffer[65535] = 0;
 
   cout << "Server received: " << buffer << endl;
+  /*
   memset(&host_info, 0, sizeof(host_info));
   host_info.ai_family = AF_UNSPEC;
   host_info.ai_socktype = SOCK_STREAM;
@@ -125,18 +130,18 @@ int main() {
     return -1;
   }  //if
 
-  //const char * message = "GET / HTTP/1.1\r\nHost: www.google.com\r\nConnection: close\r\n\r\n";
   cout << "Sent to target: " << buffer << endl;
   send(socket_fd, buffer, strlen(buffer), 0);
 
+  memset(buffer, 65535, 0);
   recv(socket_fd, buffer, 65535, 0);
   buffer[65535] = 0;
   cout << "Received from target: " << endl << buffer << endl;
 
   send(client_connection_fd, buffer, 65535, 0);
-
+  
   freeaddrinfo(host_info_list);
-
+  */
   // close(socket_fd);
 
   return 0;

@@ -1,4 +1,4 @@
-TARGETS=server client
+TARGETS=server client testing
 all: $(TARGETS)
 
 server: server.cpp
@@ -6,3 +6,6 @@ server: server.cpp
   
 client: client.cpp
 	g++ -g -o $@ $<
+ 
+testing: test.cpp
+	g++ -g -o $@ $< 
