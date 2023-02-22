@@ -1,77 +1,78 @@
 #include <boost/asio.hpp>
+#include <boost/beast/core.hpp>
 #include <boost/beast/http.hpp>
+#include <boost/beast/version.hpp>
 
 #include <iostream>
+#include <thread>
+
 using namespace std;
 using namespace boost;
 using namespace boost::beast;
 using namespace asio::ip;
+
+// only works for
 class Proxy {
  private:
   system::error_code err;
-  const char * hostname;
+  asio::io_context io_context;
   const char * port;
+  tcp::acceptor acc;
 
  public:
-  Proxy(const char * hostname, const char * port) : hostname(hostname), port(port) {}
-
-  string recv_from(tcp::socket * sock, asio::streambuf * buffer) {
-    size_t a = asio::read_until(*sock, *buffer, "\r\n\r\n");
-    cout << "received\n" << buffer << endl;
-    asio::streambuf::const_buffers_type bufs = buffer->data();
-    string str(asio::buffers_begin(bufs), asio::buffers_begin(bufs) + a);
-    return str;
+  Proxy(const char * port) :
+      port(port), acc(io_context, tcp::endpoint(tcp::v4(), atoi(port))) {
+    //tcp::acceptor acceptor(io_context, tcp::endpoint(tcp::v4(), atoi(port))) ;
   }
 
-  void transmit() {
-    asio::io_context io_context;
-    tcp::socket user_sock(io_context);
-    tcp::socket server_sock(io_context);
-    tcp::acceptor acceptor(io_context, tcp::endpoint(tcp::v4(), 1917));
-    tcp::resolver resolver(io_context);
-    acceptor.accept(user_sock);
-    asio::connect(server_sock, resolver.resolve(hostname, port));
+  Proxy() : Proxy("1917") {}
+
+  void begin_proxy() {
+    while (1) {
+      tcp::socket * user_sock = new tcp::socket(io_context);
+      acc.accept(*user_sock);
+      thread t(&Proxy::transmit, this, user_sock);
+      t.detach();
+    }
+  }
+
+  void transmit(tcp::socket * user_sock) {
     asio::streambuf u_buffer;
 
-    asio::read_until(user_sock, u_buffer, "\r\n\r\n");
+    asio::read_until(*user_sock, u_buffer, "\r\n\r\n");
     string request(asio::buffers_begin(u_buffer.data()),
                    asio::buffers_end(u_buffer.data()));
-    cout << "sending to server, waiting server response\n";
-    cout << asio::write(server_sock, asio::buffer(request)) << " bytes wrote\n";
-    cout << "waiting...\n";
 
+    http::request<http::string_body> req;
+    http::request_parser<http::string_body> parser;
+    parser.put(asio::buffer(request.data(), request.size()), err);
+    req = parser.get();
+    cout << req.at("HOST") << endl;
+    string hostname = string(req.at("HOST"));
+    string port = "80";
     asio::streambuf s_buffer;
+    beast::tcp_stream stream(io_context);
+
+    tcp::resolver resolver(io_context);
+    tcp::socket server_sock(io_context);
+    asio::connect(server_sock, resolver.resolve(hostname, port));
+
+    stream.connect(resolver.resolve(hostname, port));
+
+    http::write(stream, req);
+    http::response<http::dynamic_body> res;
 
     string response_string;
-    while (true) {
-      asio::read(server_sock,
-                 s_buffer,
-                 asio::transfer_at_least(1),
-                 err);  //, asio::transfer_at_least(1)
-      cout << &s_buffer;
-      if (err == asio::error::eof) {
-        break;
-      }
-    }
+    beast::flat_buffer buffer;
+    http::read(stream, buffer, res);
+    stringstream ss;
+    ss << res;
+    asio::write(*user_sock, asio::buffer(ss.str()));
+    // prove this is multithreading
   }
 };
 
 int main() {
-  /*
-  asio::io_context iocontext;
-  tcp::acceptor acceptor(iocontext, tcp::endpoint(tcp::v4(), 1917));
-  tcp::socket sock(iocontext);
-  acceptor.accept(sock);
-  cout << "receiving..." << endl;
-  asio::streambuf buffer;
-  system::error_code err;
-  asio::read(sock, buffer, asio::transfer_at_least(1), err);
-  cout << &buffer << endl;
-
-  cout << "ending..." << endl;
-  */
-  const char * hostname = "httpbin.org";
-  const char * port = "80";
-  Proxy p(hostname, port);
-  p.transmit();
+  Proxy p;
+  p.begin_proxy();
 }
