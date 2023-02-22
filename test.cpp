@@ -44,8 +44,8 @@ class Proxy {
       string request(asio::buffers_begin(u_buffer.data()),
                      asio::buffers_end(u_buffer.data()));
 
-      http::request<http::string_body> req;
-      http::request_parser<http::string_body> parser;
+      http::request<http::dynamic_body> req;
+      http::request_parser<http::dynamic_body> parser;
       parser.put(asio::buffer(request.data(), request.size()), err);
       req = parser.get();
       cout << req.at("HOST") << endl;
