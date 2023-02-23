@@ -1,6 +1,10 @@
 TODO:
 
-read http request instead of raw text
 handle caching
 handle POST (not much to do)
 handle HTTPS (443, select, asynchronous r/w?)
+
+what it does now:
+
+concurrent requests
+handles http requests
