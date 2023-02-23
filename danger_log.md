@@ -1,0 +1,1 @@
+If http request contains Connection: keep-alive and the response length happens to be multiple of 65536, the recv() loop will not exit.
