@@ -80,7 +80,7 @@ class Proxy {
 
   void begin_proxy() {
     init_usersock();
-    while (1) {
+    while (true) {
       struct sockaddr_storage socket_addr;
       socklen_t socket_addr_len = sizeof(socket_addr);
       int client_connection_fd =
@@ -149,7 +149,6 @@ class Proxy {
     } while (l == 65536);
     */
     string request_str = receive(user_fd);
-    cout << "ended recv, got " << request_str;
     /*
     try {
       asio::streambuf u_buffer;
@@ -227,7 +226,7 @@ class Proxy {
   }
 };
 
-void daemon() {
+void be_daemon() {
   pid_t pid = fork();
   if (pid > 0) {
     exit(0);
@@ -287,7 +286,8 @@ void daemon() {
 }
 
 int main() {
-  daemon();
+  be_daemon();
   Proxy p;
   p.begin_proxy();
+  return 1;
 }
