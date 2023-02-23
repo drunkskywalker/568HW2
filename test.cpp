@@ -191,7 +191,7 @@ class Proxy {
     res_parser.put(asio::buffer(response_str.data(), response_str.size()), err);
     http::response<http::dynamic_body> res;
 
-    // do stuff with response
+    //TODO: do stuff with response
     res = res_parser.get();
     // This only sends the request back!!!
     send(user_fd, response_str.c_str(), strlen(response_str.c_str()), 0);
@@ -227,7 +227,67 @@ class Proxy {
   }
 };
 
+void daemon() {
+  pid_t pid = fork();
+  if (pid > 0) {
+    exit(0);
+  }
+  else if (pid < 0) {
+    cerr << "fork() returned -1. exiting\n";
+    exit(1);
+  }
+  else {
+    pid_t sid = setsid();
+    if (sid < 0) {
+      cerr << "setsid() returned -1. exiting\n";
+      exit(1);
+    }
+
+    pid = fork();
+    if (pid == 0) {
+      exit(0);
+    }
+    else if (pid < 0) {
+      cerr << "fork() returned -1. exiting\n";
+      exit(1);
+    }
+    else {
+      int c = chdir("/");
+      if (c < 0) {
+        cerr << "chdir() returned -1. exiting\n";
+        exit(1);
+      }
+      umask(0);
+      int fd = open("/dev/null", O_RDWR);
+      if (fd < 0) {
+        cerr << "open() returned -1. exiting\n";
+        exit(1);
+      }
+      int d1 = dup2(fd, 0);
+      if (d1 < 0) {
+        cerr << "dup2() returned -1. exiting\n";
+        exit(1);
+      }
+      int d2 = dup2(fd, 1);
+      if (d2 < 0) {
+        cerr << "dup2() returned -1. exiting\n";
+        exit(1);
+      }
+      int d3 = dup2(fd, 2);
+      if (d3 < 0) {
+        cerr << "dup2() returned -1. exiting\n";
+        exit(1);
+      }
+      if (close(0) < 0 || close(1) < 0 || close(2) < 0 || (fd > 2 && close(fd) < 0)) {
+        cerr << "close() returned -1. exiting\n";
+        exit(1);
+      }
+    }
+  }
+}
+
 int main() {
+  daemon();
   Proxy p;
   p.begin_proxy();
 }
