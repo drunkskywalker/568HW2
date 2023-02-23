@@ -46,7 +46,8 @@ int main() {
       return -1;
     }  //if
 
-    const char * message = "GET /forms/post HTTP/1.1\r\nHost: www.httpbin.org\r\n\r\n";
+    const char * message = "GET /forms/post HTTP/1.1\r\nHost: "
+                           "www.httpbin.org\r\nConnection: keep-alive\r\n\r\n";
     cout << "Client sent: " << message << endl;
     /*
   const char * target_hostname = "www.bing.com";
