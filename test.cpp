@@ -20,6 +20,7 @@ class Proxy {
   //tcp::acceptor acc;
   int status;
   int recv_fd;
+
   void init_usersock() {
     struct addrinfo recv_host_info;
     struct addrinfo * recv_host_info_list;
@@ -122,11 +123,23 @@ class Proxy {
 
       return -1;
     }  //if
-
+    freeaddrinfo(host_info_list);
     return server_fd;
   }
 
+  string receive(int fd) {
+    string str;
+    char buffer[65536];
+    int l = 65536;
+    do {
+      l = recv(fd, buffer, 65536, 0);
+      str.append(string(buffer));
+    } while (l == 65536);
+    return str;
+  }
+
   void transmit(int user_fd) {
+    /*
     string request_str;
     char buffer[65536];
     int l = 65536;
@@ -134,7 +147,8 @@ class Proxy {
       l = recv(user_fd, buffer, 65536, 0);
       request_str.append(string(buffer));
     } while (l == 65536);
-
+    */
+    string request_str = receive(user_fd);
     cout << "ended recv, got " << request_str;
     /*
     try {
@@ -152,6 +166,8 @@ class Proxy {
 
     http::request_parser<http::dynamic_body> parser;
     parser.put(asio::buffer(request_str.data(), request_str.size()), err);
+
+    // do stuff with request
     req = parser.get();
     cout << req.at("HOST") << endl;
 
@@ -160,20 +176,25 @@ class Proxy {
     // only for HTTP; check later
     const char * s_port = "80";
     int server_fd = connect_server(s_hostname, s_port);
-
     send(server_fd, request_str.c_str(), strlen(request_str.c_str()), 0);
-
+    /*
     char recv_buffer[65536];
-
     string response_str;
     l = 65536;
     do {
       l = recv(server_fd, recv_buffer, 65536, 0);
       response_str.append(string(recv_buffer));
     } while (l == 65536);
+    */
+    string response_str = receive(server_fd);
+    http::response_parser<http::dynamic_body> res_parser;
+    res_parser.put(asio::buffer(response_str.data(), response_str.size()), err);
+    http::response<http::dynamic_body> res;
 
+    // do stuff with response
+    res = res_parser.get();
     // This only sends the request back!!!
-    send(user_fd, response_str.c_str(), 65536, 0);
+    send(user_fd, response_str.c_str(), strlen(response_str.c_str()), 0);
     close(user_fd);
     close(server_fd);
 
