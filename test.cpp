@@ -6,6 +6,8 @@
 #include <iostream>
 #include <thread>
 
+#include "Cache.cpp"
+
 using namespace std;
 using namespace boost;
 using namespace boost::beast;
@@ -18,6 +20,7 @@ class Proxy {
   asio::io_context io_context;
   const char * port;
   tcp::acceptor acc;
+  Cache cache;
 
   vector<string> get_addr(string s_info) {
     int col = s_info.find(":");
@@ -39,9 +42,9 @@ class Proxy {
 
  public:
   Proxy(const char * port) :
-      port(port), acc(io_context, tcp::endpoint(tcp::v4(), atoi(port))) {
-    //tcp::acceptor acceptor(io_context, tcp::endpoint(tcp::v4(), atoi(port))) ;
-  }
+      port(port),
+      acc(io_context, tcp::endpoint(tcp::v4(), atoi(port))),
+      cache(Cache(1000)) {}
 
   Proxy() : Proxy("1917") {}
 
@@ -60,13 +63,7 @@ class Proxy {
       http::request<http::dynamic_body> req;
       http::read(*user_sock, u_buffer, req);
 
-      //http::request_parser<http::dynamic_body> parser;
-      //parser.put(asio::buffer(request.data(), request.size()), err);
-      //req = parser.get();
-
       string s_info = string(req.at("HOST"));
-      cout << s_info << endl;
-      cout << req.method_string() << endl;
       vector<string> hp = get_addr(s_info);
 
       tcp::resolver resolver(io_context);
@@ -75,7 +72,6 @@ class Proxy {
 
       if (req.method_string() == "CONNECT") {
         string ok = "HTTP/1.1 200 OK\r\n\r\n";
-        cout << ok;
         asio::write(*user_sock, asio::buffer(ok));
         int u = 1;
         int s = 1;
@@ -85,32 +81,32 @@ class Proxy {
 
           if (u > 0) {
             vector<char> buf(u);
-            //cout << u << ", received from user" << endl;
             asio::read(*user_sock, asio::buffer(buf));
-            //cout << &buf;
             asio::write(server_sock, asio::buffer(buf));
-            //notsent = false;
-            //cout << "ending u->s transmission, waiting" << endl;
           }
           else if (s > 0) {
             vector<char> buf(s);
-            //   cout << s << endl;
             asio::read(server_sock, asio::buffer(buf));
-            //cout << &buf;
             asio::write(*user_sock, asio::buffer(buf));
-            //notsent = false;
-
-            //cout << "ending u<-s transmission, waiting" << endl;
           }
         }
-
-        //cout << "closed by proxy" << endl;
-        //cout << notsent << endl;
         server_sock.close();
         user_sock->close();
         delete user_sock;
         return;
       }
+
+      //no checking
+
+      if (req.method_string() == "GET") {
+        string key = string(req.at("HOST")) + string(req.target());
+        if (cache.check_availibility(key)) {
+          http::write(*user_sock, cache.get_cached_response(key));
+          cout << "received from cache\n";
+          return;
+        }
+      }
+
       http::write(server_sock, req);
       http::response<http::dynamic_body> res;
       beast::flat_buffer response_buffer;
@@ -118,6 +114,13 @@ class Proxy {
       stringstream ss;
       ss << res;
       asio::write(*user_sock, asio::buffer(ss.str()));
+
+      if (req.method_string() == "GET") {
+        string key = string(req.at("HOST")) + string(req.target());
+        cache.try_add(key, res);
+        cout << key << endl;
+      }
+
       server_sock.close();
       user_sock->close();
       delete user_sock;
