@@ -46,8 +46,8 @@ int main() {
     return -1;
   }  //if
 
-  const char * message = "GET / HTTP/1.1\r\nHost: "
-                         "www.google.com\r\n\r\n";
+  const char * message = "CONNECT google.com:443 HTTP/1.1\r\nHost: "
+                         "www.google.com:443\r\n\r\n";
   cout << "Client sent: " << message << endl;
   /*
   const char * target_hostname = "www.bing.com";
