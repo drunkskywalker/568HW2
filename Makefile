@@ -1,4 +1,4 @@
-TARGETS=server client testing
+TARGETS=server client testing proxy
 all: $(TARGETS)
 
 server: server.cpp
@@ -9,3 +9,6 @@ client: client.cpp
  
 testing: test.cpp
 	g++ -g -o $@ $< 
+
+proxy: Proxy.cpp Cache.cpp
+	g++ $^ -g -o $@
