@@ -46,8 +46,8 @@ int main() {
     return -1;
   }  //if
 
-  const char * message = "CONNECT google.com:443 HTTP/1.1\r\nHost: "
-                         "www.google.com:443\r\n\r\n";
+  const char * message = "GET /fb/i/icn/feed-icon-10x10.gif HTTP/1.1\r\nHost: "
+                         "feedburner.google.com\r\nLast-Modified: Thu, 03 Oct 2019 10:15:00 GMT\r\n\r\n";
   cout << "Client sent: " << message << endl;
   /*
   const char * target_hostname = "www.bing.com";

@@ -1,10 +1,3 @@
-#include <boost/asio.hpp>
-#include <boost/beast/core.hpp>
-#include <boost/beast/http.hpp>
-#include <boost/beast/version.hpp>
-
-#include <iostream>
-#include <thread>
 
 #include "Cache.hpp"
 using namespace std;
@@ -20,10 +13,10 @@ class Proxy {
   tcp::acceptor acc;
   Cache cache;
   vector<string> get_addr(string s_info);
+
  public:
   Proxy(const char * port);
   Proxy();
   void begin_proxy();
-  void transmit(tcp::socket * user_sock);
-  
+  void transmit(tcp::socket * user_sock, int x);
 };
