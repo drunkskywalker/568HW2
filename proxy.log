@@ -1,0 +1,122 @@
+0: CONNECT alive.github.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:21:35
+1: CONNECT alive.github.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:21:35
+2: CONNECT beacons5.gvt2.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:21:35
+3: CONNECT alive.github.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:21:35
+4: GET /fb/i/icn/feed-icon-10x10.gif HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:21:38
+4: not in cache
+4: Requesting "GET /fb/i/icn/feed-icon-10x10.gif HTTP/1.1" from feedburner.google.com
+4: Received "HTTP/1.1 200 OK" from feedburner.google.com
+4: cached, expires at 2023-Feb-26 22:21:36
+5: GET /fb/i/icn/feed-icon-10x10.gif HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:21:43
+5: in cache, but expired at 2023-Feb-26 22:21:36
+5: re-validation with server
+5: GET /fb/i/icn/feed-icon-10x10.gif HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:21:43
+5: Received "HTTP/1.1 200 OK" from feedburner.google.com
+5: Requesting "GET /fb/i/icn/feed-icon-10x10.gif HTTP/1.1" from feedburner.google.com
+5: Received "HTTP/1.1 304 Not Modified" from feedburner.google.com
+5: not cachable because not 200 OK
+6: CONNECT developer.mozilla.org:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:21:46
+7: CONNECT www.google.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:21:49
+8: GET http://feedburner.google.com/fb/i/icn/feed-icon-10x10.gif HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:21:49
+8: not in cache
+8: Requesting "GET http://feedburner.google.com/fb/i/icn/feed-icon-10x10.gif HTTP/1.1" from feedburner.google.com
+8: Received "HTTP/1.1 200 OK" from feedburner.google.com
+8: cached, expires at 2023-Feb-26 22:21:47
+9: GET http://feedburner.google.com/fb/i/icn/feed-icon-10x10.gif HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:21:55
+9: in cache, but expired at 2023-Feb-26 22:21:47
+9: re-validation with server
+9: GET http://feedburner.google.com/fb/i/icn/feed-icon-10x10.gif HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:21:55
+9: Received "HTTP/1.1 200 OK" from feedburner.google.com
+9: Requesting "GET http://feedburner.google.com/fb/i/icn/feed-icon-10x10.gif HTTP/1.1" from feedburner.google.com
+9: Received "HTTP/1.1 304 Not Modified" from feedburner.google.com
+9: not cachable because not 200 OK
+11: CONNECT clients4.google.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:22:01
+12: CONNECT beacons.gcp.gvt2.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:22:01
+13: GET http://www.testingmcafeesites.com/testcat_au.html HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:22:12
+13: not in cache
+13: Requesting "GET http://www.testingmcafeesites.com/testcat_au.html HTTP/1.1" from www.testingmcafeesites.com
+13: Received "HTTP/1.1 304 Not Modified" from www.testingmcafeesites.com
+13: not cachable because not 200 OK
+14: GET http://www.testingmcafeesites.com/testcat_au.html HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:22:13
+14: not in cache
+14: Requesting "GET http://www.testingmcafeesites.com/testcat_au.html HTTP/1.1" from www.testingmcafeesites.com
+14: Received "HTTP/1.1 304 Not Modified" from www.testingmcafeesites.com
+14: not cachable because not 200 OK
+15: GET http://www.testingmcafeesites.com/testcat_au.html HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:22:13
+15: not in cache
+15: Requesting "GET http://www.testingmcafeesites.com/testcat_au.html HTTP/1.1" from www.testingmcafeesites.com
+15: Received "HTTP/1.1 304 Not Modified" from www.testingmcafeesites.com
+15: not cachable because not 200 OK
+10: GET http://feedburner.google.com/fb/i/icn/feed-icon-10x10.gif HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:22:47
+10: in cache, valid
+18: GET http://www.testingmcafeesites.com/testcat_au.html HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:14
+18: not in cache
+18: Requesting "GET http://www.testingmcafeesites.com/testcat_au.html HTTP/1.1" from www.testingmcafeesites.com
+18: Received "HTTP/1.1 200 OK" from www.testingmcafeesites.com
+18: cached, expires at -1
+20: CONNECT lh3.googleusercontent.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:15
+21: CONNECT www.gstatic.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:15
+22: CONNECT apis.google.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:15
+24: CONNECT lh3.googleusercontent.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:15
+25: CONNECT www.gstatic.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:15
+19: GET http://www.testingmcafeesites.com/testcat_au.html HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:16
+19: in cache, valid
+23: GET http://www.testingmcafeesites.com/testcat_au.html HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:16
+23: in cache, valid
+26: GET http://www.testingmcafeesites.com/testcat_au.html HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:29
+26: in cache, valid
+28: CONNECT ntp.msn.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:34
+29: CONNECT assets.msn.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:34
+30: CONNECT api.github.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:34
+31: CONNECT collector.github.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:34
+32: CONNECT api.msn.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:34
+35: CONNECT img-s-msn-com.akamaized.net:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:34
+34: CONNECT assets.msn.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:34
+37: CONNECT www.bing.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:34
+36: CONNECT c.msn.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:34
+39: CONNECT c.bing.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:34
+33: CONNECT sb.scorecardresearch.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:34
+38: CONNECT th.bing.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:34
+40: CONNECT browser.events.data.msn.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:34
+41: CONNECT cn.bing.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:34
+42: CONNECT srtb.msn.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:35
+43: GET http://www.testingmcafeesites.com/testcat_au.html HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:35
+45: CONNECT browser.events.data.msn.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:35
+43: in cache, valid
+46: CONNECT browser.events.data.msn.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:35
+44: GET http://www.testingmcafeesites.com/favicon.ico HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:35
+44: not in cache
+44: Requesting "GET http://www.testingmcafeesites.com/favicon.ico HTTP/1.1" from www.testingmcafeesites.com
+44: Received "HTTP/1.1 404 Not Found" from www.testingmcafeesites.com
+44: not cachable because not 200 OK
+48: GET http://www.testingmcafeesites.com/testcat_au.html HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:36
+48: in cache, valid
+47: GET http://www.testingmcafeesites.com/testcat_au.html HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:42
+47: in cache, valid
+49: GET http://www.testingmcafeesites.com/testcat_au.html HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:51
+49: in cache, valid
+50: GET http://www.testingmcafeesites.com/testcat_au.html HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:23:54
+50: in cache, valid
+52: CONNECT edge.microsoft.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:24:04
+51: GET http://www.testingmcafeesites.com/testcat_au.html HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:24:20
+51: in cache, valid
+54: CONNECT srtb.msn.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:24:29
+55: CONNECT ecn-us.dev.virtualearth.net:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:24:29
+56: CONNECT assets.msn.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:24:29
+57: CONNECT img-s-msn-com.akamaized.net:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:24:30
+58: CONNECT www.bing.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:24:30
+59: CONNECT r.bing.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:24:30
+61: CONNECT r.msftstatic.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:24:30
+60: CONNECT r.msftstatic.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:24:30
+62: CONNECT r.bing.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:24:30
+64: CONNECT se1.mavideo.microsoft.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:24:31
+65: CONNECT beacons.gcp.gvt2.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:24:55
+66: CONNECT img-s-msn-com.akamaized.net:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:25:02
+67: CONNECT ecn.dev.virtualearth.net:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:25:04
+68: CONNECT ogs.google.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:25:22
+69: CONNECT ssl.gstatic.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:25:23
+71: GET http://feedburner.google.com/fb/i/icn/feed-icon-10x10.gif HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:25:25
+71: in cache, valid
+70: GET http://feedburner.google.com/fb/i/icn/feed-icon-10x10.gif HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:25:31
+70: in cache, valid
+72: GET http://feedburner.google.com/fb/i/icn/feed-icon-10x10.gif HTTP/1.1 from 127.0.0.1 @ 2023-Feb-26 22:25:31
