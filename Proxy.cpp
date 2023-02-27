@@ -41,10 +41,8 @@ void Proxy::begin_proxy() {
     tcp::socket * user_sock = new tcp::socket(io_context);
     acc.accept(*user_sock);
     int x;
-
     x = id;
     id++;
-
     thread t(&Proxy::transmit, this, user_sock, x);
     t.detach();
   }
@@ -64,7 +62,6 @@ void Proxy::handle_connect(tcp::socket * user_sock, tcp::socket * server_sock, i
         pthread_mutex_lock(&log_lock);
         lFile << x << ": tunnel closed" << endl;
         pthread_mutex_unlock(&log_lock);
-        cout << "closed" << endl;
         return;
       }
       u = user_sock->available();
@@ -88,7 +85,6 @@ void Proxy::handle_connect(tcp::socket * user_sock, tcp::socket * server_sock, i
       pthread_mutex_lock(&log_lock);
       lFile << x << ": tunnel closed" << endl;
       pthread_mutex_unlock(&log_lock);
-      cout << "closed" << endl;
       return;
     }
   }
@@ -143,6 +139,7 @@ string Proxy::get_ver(response<dynamic_body> & res) {
 }
 
 void Proxy::transmit(tcp::socket * user_sock, int x) {
+  system::error_code ec;
   tcp::resolver resolver(io_context);
   tcp::socket server_sock(io_context);
   beast::flat_buffer u_buffer;
@@ -163,7 +160,8 @@ void Proxy::transmit(tcp::socket * user_sock, int x) {
     asio::connect(server_sock, resolver.resolve(hp[0], hp[1]));
   }
   catch (...) {
-    asio::write(*user_sock, asio::buffer("HTTP/1.1 400 Bad Request\r\n\r\n"));
+
+    asio::write(*user_sock, asio::buffer("HTTP/1.1 400 Bad Request\r\n\r\n"), ec);
     server_sock.close();
     user_sock->close();
     delete user_sock;
@@ -172,6 +170,7 @@ void Proxy::transmit(tcp::socket * user_sock, int x) {
   try {
     if (req.method_string() == "CONNECT") {
       handle_connect(user_sock, &server_sock, x);
+      return;
     }
 
     if (req.method_string() == "GET") {
@@ -182,7 +181,7 @@ void Proxy::transmit(tcp::socket * user_sock, int x) {
       http::write(server_sock, req);
     }
     catch (...) {
-      asio::write(*user_sock, asio::buffer("HTTP/1.1 502 Bad Gateway\r\n\r\n"));
+      asio::write(*user_sock, asio::buffer("HTTP/1.1 502 Bad Gateway\r\n\r\n"), ec);
       server_sock.close();
       user_sock->close();
       delete user_sock;
@@ -211,7 +210,7 @@ void Proxy::transmit(tcp::socket * user_sock, int x) {
   }
 
   catch (...) {
-    asio::write(*user_sock, asio::buffer("HTTP/1.1 500 Internal Server Error\r\n\r\n"));
+    asio::write(*user_sock, asio::buffer("HTTP/1.1 500 Internal Server Error\r\n\r\n"), ec);
     server_sock.close();
     user_sock->close();
     delete user_sock;
