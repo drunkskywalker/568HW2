@@ -57,7 +57,16 @@ void Proxy::transmit(tcp::socket * user_sock, int x) {
   http::request<http::dynamic_body> req;
   string ver;
   try {
-    http::read(*user_sock, u_buffer, req);
+    try {
+      http::read(*user_sock, u_buffer, req);
+    }
+    catch (...) {
+      asio::write(*user_sock, asio::buffer("HTTP/1.1 400 Bad Request\r\n\r\n"));
+      server_sock.close();
+      user_sock->close();
+      delete user_sock;
+      return;
+    }
 
     if (req.version() == 10) {
       ver = "HTTP/1.0";
@@ -133,8 +142,16 @@ void Proxy::transmit(tcp::socket * user_sock, int x) {
     if (req.method_string() == "GET") {
       if (cache.check_read(x, req, user_sock, &server_sock) == 0) {
         //cout << "fetch from cache \n";
-        http::write(*user_sock, cache.get_cached_response(req));
-
+        try {
+          http::write(*user_sock, cache.get_cached_response(req));
+        }
+        catch (...) {
+          asio::write(*user_sock, asio::buffer("HTTP/1.1 502 Bad Gateway\r\n\r\n"));
+          server_sock.close();
+          user_sock->close();
+          delete user_sock;
+          return;
+        }
         server_sock.close();
         user_sock->close();
         delete user_sock;
@@ -177,7 +194,7 @@ void Proxy::transmit(tcp::socket * user_sock, int x) {
     return;
   }
 
-  catch (const std::exception & e) {
+  catch (...) {
     asio::write(*user_sock, asio::buffer("HTTP/1.1 500 Internal Server Error\r\n\r\n"));
     server_sock.close();
     user_sock->close();
