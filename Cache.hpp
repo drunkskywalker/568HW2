@@ -9,9 +9,9 @@
 #include <ctime>
 #include <fstream>
 #include <iostream>
-#include <map>
 #include <string_view>
 #include <thread>
+#include <unordered_map>
 
 using namespace std;
 using namespace boost;
@@ -23,6 +23,8 @@ class Cache {
   unordered_map<string, response<dynamic_body> > response_map;
   vector<string> request_list;
   size_t capacity;
+
+  pthread_rwlock_t * cache_rwlock;
 
   pthread_mutex_t * log_lock;
   ofstream & lFile;
@@ -40,7 +42,10 @@ class Cache {
   string get_url(request<dynamic_body> & req);
 
  public:
-  Cache(size_t capacity, pthread_mutex_t * log_lock, ofstream & lFile);
+  Cache(size_t capacity,
+        pthread_rwlock_t * cache_rwlock,
+        pthread_mutex_t * log_lock,
+        ofstream & lFile);
 
   bool try_add(request<dynamic_body> & req, response<dynamic_body> & res);
   int get_index(string url);

@@ -1,19 +1,26 @@
 #include "Cache.hpp"
+
 // add ifstream reference, lock pointer
 using namespace std;
 using namespace boost;
 using namespace boost::beast::http;
 using namespace asio::ip;
 using namespace boost::posix_time;
-Cache::Cache(size_t capacity, pthread_mutex_t * log_lock, ofstream & lFile) :
-    capacity(capacity), log_lock(log_lock), lFile(lFile) {
+
+Cache::Cache(size_t capacity,
+             pthread_rwlock_t * cache_rwlock,
+             pthread_mutex_t * log_lock,
+             ofstream & lFile) :
+    capacity(capacity), cache_rwlock(cache_rwlock), log_lock(log_lock), lFile(lFile) {
 }
 
 bool Cache::try_add(request<dynamic_body> & req, response<dynamic_body> & res) {
+  pthread_rwlock_wrlock(cache_rwlock);
   string url = get_url(req);
   if (request_list.size() < capacity) {
     response_map[url] = res;
     request_list.push_back(url);
+    pthread_rwlock_unlock(cache_rwlock);
     return true;
   }
   else {
@@ -22,8 +29,10 @@ bool Cache::try_add(request<dynamic_body> & req, response<dynamic_body> & res) {
     request_list.erase(request_list.begin());
     response_map[url] = res;
     request_list.push_back(url);
+    pthread_rwlock_unlock(cache_rwlock);
     return true;
   }
+  pthread_rwlock_unlock(cache_rwlock);
   return false;
 }
 
@@ -31,11 +40,14 @@ string Cache::get_url(request<dynamic_body> & req) {
   return string(req.at("HOST")) + string(req.target());
 }
 int Cache::get_index(string url) {
+  pthread_rwlock_rdlock(cache_rwlock);
   for (size_t i = 0; i < request_list.size(); i++) {
     if (request_list[i] == url) {
+      pthread_rwlock_unlock(cache_rwlock);
       return i;
     }
   }
+  pthread_rwlock_unlock(cache_rwlock);
   return -1;
 }
 //checks if response has expired
@@ -242,6 +254,7 @@ int Cache::check_read(int id,
     pthread_mutex_lock(log_lock);
     lFile << id << ": in cache, valid\n";
     pthread_mutex_unlock(log_lock);
+    pthread_rwlock_unlock(cache_rwlock);
     return 0;
   }
 
@@ -268,7 +281,10 @@ int Cache::check_read(int id,
 response<dynamic_body> Cache::get_cached_response(request<dynamic_body> & req) {
   string url = get_url(req);
   int index = get_index(url);
+  pthread_rwlock_wrlock(cache_rwlock);
   request_list.erase(request_list.begin() + index);
   request_list.push_back(url);
-  return response_map[url];
+  response<dynamic_body> res = response_map[url];
+  pthread_rwlock_unlock(cache_rwlock);
+  return res;
 }

@@ -6,6 +6,7 @@ using namespace boost::beast;
 using namespace asio::ip;
 
 long long unsigned id = 0;
+pthread_rwlock_t cache_rwlock = PTHREAD_RWLOCK_INITIALIZER;
 pthread_mutex_t log_lock = PTHREAD_MUTEX_INITIALIZER;
 ofstream lFile("proxy.log");
 
@@ -30,7 +31,7 @@ vector<string> Proxy::get_addr(string s_info) {
 Proxy::Proxy(const char * port) :
     port(port),
     acc(io_context, tcp::endpoint(tcp::v4(), atoi(port))),
-    cache(Cache(1000, &log_lock, lFile)) {
+    cache(Cache(1000, &cache_rwlock, &log_lock, lFile)) {
 }
 Proxy::Proxy() : Proxy("1917") {
 }
@@ -119,7 +120,7 @@ void Proxy::transmit(tcp::socket * user_sock, int x) {
 
     if (req.method_string() == "GET") {
       if (cache.check_read(x, req, user_sock, &server_sock) == 0) {
-       //cout << "fetch from cache \n";
+        //cout << "fetch from cache \n";
         http::write(*user_sock, cache.get_cached_response(req));
 
         server_sock.close();
