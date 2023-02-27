@@ -1,0 +1,6 @@
+version: '2'
+services:
+  proxy:
+    build: .
+    ports:
+      - "1917:1917"

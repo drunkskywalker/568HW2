@@ -1,5 +1,14 @@
-0: GET /fb/i/icn/feed-icon-10x10.gif HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 02:38:17
+0: GET /fb/i/icn/feed-icon-10x10.gif HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 16:06:17
 0: not in cache
 0: Requesting "GET /fb/i/icn/feed-icon-10x10.gif HTTP/1.1" from feedburner.google.com
 0: Received "HTTP/1.1 200 OK" from feedburner.google.com
-0: cached, expires at 2023-Feb-27 02:38:17
+0: cached, expires at 2023-Feb-27 16:06:17
+1: GET /fb/i/icn/feed-icon-10x10.gif HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 16:06:32
+1: in cache, but expired at 2023-Feb-27 16:06:17
+1: re-validation with server
+1: GET /fb/i/icn/feed-icon-10x10.gif HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 16:06:32
+1: Received "HTTP/1.1 200 OK" from feedburner.google.com
+1: Requesting "GET /fb/i/icn/feed-icon-10x10.gif HTTP/1.1" from feedburner.google.com
+1: Received "HTTP/1.1 304 Not Modified" from feedburner.google.com
+1: not cachable because not 200 OK
+2: GET /fb/i/icn/feed-icon-10x10.gif HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 16:06:43
