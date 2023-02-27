@@ -15,6 +15,7 @@ Cache::Cache(size_t capacity,
 }
 
 bool Cache::try_add(request<dynamic_body> & req, response<dynamic_body> & res) {
+
   pthread_rwlock_wrlock(cache_rwlock);
   string url = get_url(req);
   if (request_list.size() < capacity) {
@@ -24,7 +25,9 @@ bool Cache::try_add(request<dynamic_body> & req, response<dynamic_body> & res) {
     return true;
   }
   else {
+
     string old = request_list.front();
+
     response_map.erase(old);
     request_list.erase(request_list.begin());
     response_map[url] = res;

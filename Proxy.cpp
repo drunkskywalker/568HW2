@@ -50,30 +50,107 @@ void Proxy::begin_proxy() {
   }
 }
 
+void Proxy::handle_connect(tcp::socket * user_sock, tcp::socket * server_sock, int x) {
+  string ok = "HTTP/1.1 200 OK\r\n\r\n";
+  asio::write(*user_sock, asio::buffer(ok));
+  int u = 1;
+  int s = 1;
+  while (1) {
+    try {
+      if (!user_sock->is_open() || !server_sock->is_open()) {
+        server_sock->close();
+        user_sock->close();
+        delete user_sock;
+        pthread_mutex_lock(&log_lock);
+        lFile << x << ": tunnel closed" << endl;
+        pthread_mutex_unlock(&log_lock);
+        cout << "closed" << endl;
+        return;
+      }
+      u = user_sock->available();
+      s = server_sock->available();
+
+      if (u > 0) {
+        vector<char> buf(u);
+        asio::read(*user_sock, asio::buffer(buf));
+        asio::write(*server_sock, asio::buffer(buf));
+      }
+      else if (s > 0) {
+        vector<char> buf(s);
+        asio::read(*server_sock, asio::buffer(buf));
+        asio::write(*user_sock, asio::buffer(buf));
+      }
+    }
+    catch (...) {
+      server_sock->close();
+      user_sock->close();
+      delete user_sock;
+      pthread_mutex_lock(&log_lock);
+      lFile << x << ": tunnel closed" << endl;
+      pthread_mutex_unlock(&log_lock);
+      cout << "closed" << endl;
+      return;
+    }
+  }
+}
+
+void Proxy::check_with_cache(request<dynamic_body> & req,
+                             tcp::socket * user_sock,
+                             tcp::socket * server_sock,
+                             int x) {
+  string ver;
+  if (req.version() == 10) {
+    ver = "HTTP/1.0";
+  }
+  else {
+    ver = "HTTP/1.1";
+  }
+  if (cache.check_read(x, req, user_sock, server_sock) == 0) {
+    http::write(*user_sock, cache.get_cached_response(req));
+    server_sock->close();
+    user_sock->close();
+    delete user_sock;
+    return;
+  }
+  else {
+    pthread_mutex_lock(&log_lock);
+    lFile << x << ": Requesting \"" << req.method() << " " << req.target() << " " << ver
+          << "\" from " << req.at("HOST") << endl;
+    pthread_mutex_unlock(&log_lock);
+  }
+}
+
+string Proxy::get_ver(request<dynamic_body> & req) {
+  string ver;
+  if (req.version() == 10) {
+    ver = "HTTP/1.0";
+  }
+  else {
+    ver = "HTTP/1.1";
+  }
+  return ver;
+}
+
+string Proxy::get_ver(response<dynamic_body> & res) {
+  string ver;
+  if (res.version() == 10) {
+    ver = "HTTP/1.0";
+  }
+  else {
+    ver = "HTTP/1.1";
+  }
+  return ver;
+}
+
 void Proxy::transmit(tcp::socket * user_sock, int x) {
   tcp::resolver resolver(io_context);
   tcp::socket server_sock(io_context);
   beast::flat_buffer u_buffer;
   http::request<http::dynamic_body> req;
-  string ver;
-  try {
-    try {
-      http::read(*user_sock, u_buffer, req);
-    }
-    catch (...) {
-      asio::write(*user_sock, asio::buffer("HTTP/1.1 400 Bad Request\r\n\r\n"));
-      server_sock.close();
-      user_sock->close();
-      delete user_sock;
-      return;
-    }
 
-    if (req.version() == 10) {
-      ver = "HTTP/1.0";
-    }
-    else {
-      ver = "HTTP/1.1";
-    }
+  try {
+    http::read(*user_sock, u_buffer, req);
+    string ver = get_ver(req);
     pthread_mutex_lock(&log_lock);
     posix_time::ptime recv_time = posix_time::second_clock::universal_time();
     lFile << x << ": " << req.method() << " " << req.target() << " " << ver << " from "
@@ -94,88 +171,27 @@ void Proxy::transmit(tcp::socket * user_sock, int x) {
   }
   try {
     if (req.method_string() == "CONNECT") {
-      string ok = "HTTP/1.1 200 OK\r\n\r\n";
-      asio::write(*user_sock, asio::buffer(ok));
-      int u = 1;
-      int s = 1;
-      while (1) {
-        try {
-          if (!user_sock->is_open() || !server_sock.is_open()) {
-            server_sock.close();
-            user_sock->close();
-            delete user_sock;
-            pthread_mutex_lock(&log_lock);
-            lFile << x << ": tunnel closed" << endl;
-            pthread_mutex_unlock(&log_lock);
-            cout << "closed" << endl;
-            return;
-          }
-          u = user_sock->available();
-          s = server_sock.available();
-
-          if (u > 0) {
-            vector<char> buf(u);
-            asio::read(*user_sock, asio::buffer(buf));
-            asio::write(server_sock, asio::buffer(buf));
-          }
-          else if (s > 0) {
-            vector<char> buf(s);
-            asio::read(server_sock, asio::buffer(buf));
-            asio::write(*user_sock, asio::buffer(buf));
-          }
-        }
-        catch (...) {
-          server_sock.close();
-          user_sock->close();
-          delete user_sock;
-          pthread_mutex_lock(&log_lock);
-          lFile << x << ": tunnel closed" << endl;
-          pthread_mutex_unlock(&log_lock);
-          cout << "closed" << endl;
-          return;
-        }
-      }
+      handle_connect(user_sock, &server_sock, x);
     }
-
-    //no checking
 
     if (req.method_string() == "GET") {
-      if (cache.check_read(x, req, user_sock, &server_sock) == 0) {
-        //cout << "fetch from cache \n";
-        try {
-          http::write(*user_sock, cache.get_cached_response(req));
-        }
-        catch (...) {
-          asio::write(*user_sock, asio::buffer("HTTP/1.1 502 Bad Gateway\r\n\r\n"));
-          server_sock.close();
-          user_sock->close();
-          delete user_sock;
-          return;
-        }
-        server_sock.close();
-        user_sock->close();
-        delete user_sock;
-        return;
-      }
-      else {
-        pthread_mutex_lock(&log_lock);
-        lFile << x << ": Requesting \"" << req.method() << " " << req.target() << " "
-              << ver << "\" from " << req.at("HOST") << endl;
-        pthread_mutex_unlock(&log_lock);
-      }
+      check_with_cache(req, user_sock, &server_sock, x);
     }
 
-    http::write(server_sock, req);
+    try {
+      http::write(server_sock, req);
+    }
+    catch (...) {
+      asio::write(*user_sock, asio::buffer("HTTP/1.1 502 Bad Gateway\r\n\r\n"));
+      server_sock.close();
+      user_sock->close();
+      delete user_sock;
+      return;
+    }
     http::response<http::dynamic_body> res;
     beast::flat_buffer response_buffer;
     http::read(server_sock, response_buffer, res);
-
-    if (res.version() == 10) {
-      ver = "HTTP/1.0";
-    }
-    else {
-      ver = "HTTP/1.1";
-    }
+    string ver = get_ver(res);
     pthread_mutex_lock(&log_lock);
     lFile << x << ": Received \"" << ver << " " << res.result_int() << " " << res.result()
           << "\" from " << req.at("HOST") << endl;
@@ -204,7 +220,7 @@ void Proxy::transmit(tcp::socket * user_sock, int x) {
 }
 
 int main() {
-  //  be_daemon();
+  // be_daemon();
   Proxy p;
   p.begin_proxy();
   return 1;

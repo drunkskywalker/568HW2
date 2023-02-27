@@ -13,6 +13,13 @@ class Proxy {
   tcp::acceptor acc;
   Cache cache;
   vector<string> get_addr(string s_info);
+  void handle_connect(tcp::socket * user_sock, tcp::socket * server_sock, int x);
+  void check_with_cache(request<dynamic_body> & req,
+                        tcp::socket * user_sock,
+                        tcp::socket * server_sock,
+                        int x);
+  string get_ver(request<dynamic_body> & req);
+  string get_ver(response<dynamic_body> & res);
 
  public:
   Proxy(const char * port);

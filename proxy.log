@@ -1,23 +1,32 @@
-0: CONNECT www.google.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:15
-2: CONNECT fonts.googleapis.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:15
-3: CONNECT fonts.gstatic.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:15
-1: CONNECT www.youtube.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:15
-4: CONNECT i.ytimg.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:16
-5: CONNECT fonts.gstatic.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:16
-6: CONNECT yt3.ggpht.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:18
-7: CONNECT yt3.ggpht.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:18
-8: CONNECT yt3.ggpht.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:18
-9: CONNECT yt3.ggpht.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:18
-10: CONNECT rr1---sn-hjoj-jaul.googlevideo.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:18
-11: CONNECT rr1---sn-hjoj-jaul.googlevideo.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:18
-12: CONNECT rr2---sn-5ualdnz7.googlevideo.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:18
-13: CONNECT rr2---sn-5ualdnz7.googlevideo.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:18
-14: CONNECT jnn-pa.googleapis.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:18
-15: CONNECT www.gstatic.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:18
-16: CONNECT rr1---sn-hjoj-jaul.googlevideo.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:19
-17: CONNECT rr3---sn-hjoj-jaul.googlevideo.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:19
-18: CONNECT youtube.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:19
-19: CONNECT rr3---sn-hjoj-jaul.googlevideo.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:20
-20: CONNECT play.google.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:51
-21: CONNECT play.google.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:51
-22: CONNECT play.google.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:51
+0: CONNECT services.google.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 21:22:30
+1: GET http://httpbin.org/forms/post HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 21:22:42
+1: not in cache
+1: Requesting "GET http://httpbin.org/forms/post HTTP/1.1" from httpbin.org
+1: Received "HTTP/1.1 200 OK" from httpbin.org
+1: cached, expires at -1
+3: CONNECT google.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 21:22:42
+4: CONNECT beacons.gcp.gvt2.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 21:22:42
+9: CONNECT www.google-analytics.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 21:22:49
+7: GET http://uniquetranscendentoldlaugh.neverssl.com/online HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 21:22:49
+7: not in cache
+7: Requesting "GET http://uniquetranscendentoldlaugh.neverssl.com/online HTTP/1.1" from uniquetranscendentoldlaugh.neverssl.com
+7: Received "HTTP/1.1 301 Moved Permanently" from uniquetranscendentoldlaugh.neverssl.com
+7: not cachable because not 200 OK
+8: GET http://uniquetranscendentoldlaugh.neverssl.com/online/ HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 21:22:49
+8: not in cache
+8: Requesting "GET http://uniquetranscendentoldlaugh.neverssl.com/online/ HTTP/1.1" from uniquetranscendentoldlaugh.neverssl.com
+8: Received "HTTP/1.1 200 OK" from uniquetranscendentoldlaugh.neverssl.com
+8: cached, expires at -1
+10: GET http://uniquetranscendentoldlaugh.neverssl.com/favicon.ico HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 21:22:50
+10: not in cache
+10: Requesting "GET http://uniquetranscendentoldlaugh.neverssl.com/favicon.ico HTTP/1.1" from uniquetranscendentoldlaugh.neverssl.com
+10: Received "HTTP/1.1 200 OK" from uniquetranscendentoldlaugh.neverssl.com
+10: cached, expires at -1
+11: GET http://uniquetranscendentoldlaugh.neverssl.com/online/ HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 21:22:59
+11: not in cache
+11: Requesting "GET http://uniquetranscendentoldlaugh.neverssl.com/online/ HTTP/1.1" from uniquetranscendentoldlaugh.neverssl.com
+11: Received "HTTP/1.1 200 OK" from uniquetranscendentoldlaugh.neverssl.com
+11: cached, expires at -1
+13: CONNECT zhihu-web-analytics.zhihu.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 21:23:20
+14: CONNECT www.zhihu.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 21:23:20
+15: CONNECT hm.baidu.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 21:23:20
