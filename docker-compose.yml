@@ -3,4 +3,4 @@ services:
   proxy:
     build: .
     ports:
-      - "1917:1917"
+      - "12345:12345"
