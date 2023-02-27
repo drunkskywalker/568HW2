@@ -1,14 +1,23 @@
-0: GET /fb/i/icn/feed-icon-10x10.gif HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 16:06:17
-0: not in cache
-0: Requesting "GET /fb/i/icn/feed-icon-10x10.gif HTTP/1.1" from feedburner.google.com
-0: Received "HTTP/1.1 200 OK" from feedburner.google.com
-0: cached, expires at 2023-Feb-27 16:06:17
-1: GET /fb/i/icn/feed-icon-10x10.gif HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 16:06:32
-1: in cache, but expired at 2023-Feb-27 16:06:17
-1: re-validation with server
-1: GET /fb/i/icn/feed-icon-10x10.gif HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 16:06:32
-1: Received "HTTP/1.1 200 OK" from feedburner.google.com
-1: Requesting "GET /fb/i/icn/feed-icon-10x10.gif HTTP/1.1" from feedburner.google.com
-1: Received "HTTP/1.1 304 Not Modified" from feedburner.google.com
-1: not cachable because not 200 OK
-2: GET /fb/i/icn/feed-icon-10x10.gif HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 16:06:43
+0: CONNECT www.google.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:15
+2: CONNECT fonts.googleapis.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:15
+3: CONNECT fonts.gstatic.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:15
+1: CONNECT www.youtube.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:15
+4: CONNECT i.ytimg.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:16
+5: CONNECT fonts.gstatic.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:16
+6: CONNECT yt3.ggpht.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:18
+7: CONNECT yt3.ggpht.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:18
+8: CONNECT yt3.ggpht.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:18
+9: CONNECT yt3.ggpht.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:18
+10: CONNECT rr1---sn-hjoj-jaul.googlevideo.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:18
+11: CONNECT rr1---sn-hjoj-jaul.googlevideo.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:18
+12: CONNECT rr2---sn-5ualdnz7.googlevideo.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:18
+13: CONNECT rr2---sn-5ualdnz7.googlevideo.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:18
+14: CONNECT jnn-pa.googleapis.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:18
+15: CONNECT www.gstatic.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:18
+16: CONNECT rr1---sn-hjoj-jaul.googlevideo.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:19
+17: CONNECT rr3---sn-hjoj-jaul.googlevideo.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:19
+18: CONNECT youtube.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:19
+19: CONNECT rr3---sn-hjoj-jaul.googlevideo.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:20
+20: CONNECT play.google.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:51
+21: CONNECT play.google.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:51
+22: CONNECT play.google.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-27 20:14:51

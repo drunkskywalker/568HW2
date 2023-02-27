@@ -77,7 +77,7 @@ void Proxy::transmit(tcp::socket * user_sock, int x) {
     asio::connect(server_sock, resolver.resolve(hp[0], hp[1]));
   }
   catch (...) {
-    asio::write(*user_sock, asio::buffer("HTTP/1.1 500 internal server error\r\n\r\n"));
+    asio::write(*user_sock, asio::buffer("HTTP/1.1 400 Bad Request\r\n\r\n"));
     server_sock.close();
     user_sock->close();
     delete user_sock;
@@ -90,7 +90,32 @@ void Proxy::transmit(tcp::socket * user_sock, int x) {
       int u = 1;
       int s = 1;
       while (1) {
-        if (!user_sock->is_open() || !server_sock.is_open()) {
+        try {
+          if (!user_sock->is_open() || !server_sock.is_open()) {
+            server_sock.close();
+            user_sock->close();
+            delete user_sock;
+            pthread_mutex_lock(&log_lock);
+            lFile << x << ": tunnel closed" << endl;
+            pthread_mutex_unlock(&log_lock);
+            cout << "closed" << endl;
+            return;
+          }
+          u = user_sock->available();
+          s = server_sock.available();
+
+          if (u > 0) {
+            vector<char> buf(u);
+            asio::read(*user_sock, asio::buffer(buf));
+            asio::write(server_sock, asio::buffer(buf));
+          }
+          else if (s > 0) {
+            vector<char> buf(s);
+            asio::read(server_sock, asio::buffer(buf));
+            asio::write(*user_sock, asio::buffer(buf));
+          }
+        }
+        catch (...) {
           server_sock.close();
           user_sock->close();
           delete user_sock;
@@ -99,19 +124,6 @@ void Proxy::transmit(tcp::socket * user_sock, int x) {
           pthread_mutex_unlock(&log_lock);
           cout << "closed" << endl;
           return;
-        }
-        u = user_sock->available();
-        s = server_sock.available();
-
-        if (u > 0) {
-          vector<char> buf(u);
-          asio::read(*user_sock, asio::buffer(buf));
-          asio::write(server_sock, asio::buffer(buf));
-        }
-        else if (s > 0) {
-          vector<char> buf(s);
-          asio::read(server_sock, asio::buffer(buf));
-          asio::write(*user_sock, asio::buffer(buf));
         }
       }
     }
@@ -166,7 +178,11 @@ void Proxy::transmit(tcp::socket * user_sock, int x) {
   }
 
   catch (const std::exception & e) {
-    cout << "What?" << e.what() << endl;
+    asio::write(*user_sock, asio::buffer("HTTP/1.1 500 Internal Server Error\r\n\r\n"));
+    server_sock.close();
+    user_sock->close();
+    delete user_sock;
+    return;
   }
 }
 

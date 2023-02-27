@@ -254,7 +254,9 @@ int Cache::check_read(int id,
     pthread_mutex_lock(log_lock);
     lFile << id << ": in cache, valid\n";
     pthread_mutex_unlock(log_lock);
-    pthread_rwlock_unlock(cache_rwlock);
+    
+    //why is this unlock here??????
+    //pthread_rwlock_unlock(cache_rwlock);
     return 0;
   }
 

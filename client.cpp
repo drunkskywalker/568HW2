@@ -14,7 +14,7 @@ int main() {
   struct addrinfo host_info;
   struct addrinfo * host_info_list;
   const char * hostname = "0";
-  const char * port = "1917";
+  const char * port = "12345";
 
   memset(&host_info, 0, sizeof(host_info));
   host_info.ai_family = AF_UNSPEC;
