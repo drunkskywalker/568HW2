@@ -1,4 +1,5 @@
 #include "Proxy.hpp"
+#include <unistd.h>
 
 using namespace std;
 using namespace boost;
@@ -220,6 +221,7 @@ void Proxy::transmit(tcp::socket * user_sock, int x) {
 
 int main() {
   // be_daemon();
+  daemon(0, 0);
   Proxy p;
   p.begin_proxy();
   return 1;
