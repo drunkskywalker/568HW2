@@ -33,7 +33,7 @@ Proxy::Proxy(const char * port) :
     acc(io_context, tcp::endpoint(tcp::v4(), atoi(port))),
     cache(Cache(1000, &cache_rwlock, &log_lock, lFile)) {
 }
-Proxy::Proxy() : Proxy("1917") {
+Proxy::Proxy() : Proxy("12345") {
 }
 
 void Proxy::begin_proxy() {
