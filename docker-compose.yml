@@ -4,9 +4,3 @@ services:
     build: .
     ports:
       - "12345:12345"
-    volumes:
-      - type: bind
-        source: ./logs
-        target: /var/log/erss
-volumes:
-  proxy:

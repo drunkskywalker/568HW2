@@ -255,7 +255,7 @@ void Proxy::transmit(tcp::socket * user_sock, int x) {
 
 int main() {
   // daemon(1, 1);
-  // daemon(0, 0);
+  daemon(0, 0);
   Proxy p;
   p.begin_proxy();
   return 1;
