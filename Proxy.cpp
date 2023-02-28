@@ -161,8 +161,12 @@ void Proxy::transmit(tcp::socket * user_sock, int x) {
 
     asio::connect(server_sock, resolver.resolve(hp[0], hp[1]));
   }
+  
   catch (...) {
-
+  pthread_mutex_lock(&log_lock);
+    lFile << x << ": Received \"" << ver << " 400 Bad Request " 
+          << "\" from " << req.at("HOST") << endl;
+    pthread_mutex_unlock(&log_lock);
     asio::write(*user_sock, asio::buffer("HTTP/1.1 400 Bad Request\r\n\r\n"), ec);
     server_sock.close();
     user_sock->close();
@@ -183,6 +187,11 @@ void Proxy::transmit(tcp::socket * user_sock, int x) {
       http::write(server_sock, req);
     }
     catch (...) {
+    
+      pthread_mutex_lock(&log_lock);
+    lFile << x << ": Received \"" << ver << " 502 Bad Gateway " 
+          << "\" from " << req.at("HOST") << endl;
+    pthread_mutex_unlock(&log_lock);
       asio::write(*user_sock, asio::buffer("HTTP/1.1 502 Bad Gateway\r\n\r\n"), ec);
       server_sock.close();
       user_sock->close();
@@ -212,6 +221,11 @@ void Proxy::transmit(tcp::socket * user_sock, int x) {
   }
 
   catch (...) {
+  
+        pthread_mutex_lock(&log_lock);
+    lFile << x << ": Received \"" << ver << " 500 Internal Server Error " 
+          << "\" from " << req.at("HOST") << endl;
+    pthread_mutex_unlock(&log_lock);
     asio::write(*user_sock, asio::buffer("HTTP/1.1 500 Internal Server Error\r\n\r\n"), ec);
     server_sock.close();
     user_sock->close();
