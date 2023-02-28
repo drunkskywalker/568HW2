@@ -7,6 +7,8 @@ GET / HTTP/1.1\r\nHost: www.google.com\r\n\r\n
 websites:
 GET:
 
+http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx
+http://httpbin.org/forms/post
 http://www-net.cs.umass.edu/wireshark-labs/Wireshark_HTTP_v8.0.pdf
 http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file1.html
 http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file2.html
@@ -21,3 +23,9 @@ CONNECT:
 
 https://www.google.com
 https://www.youtube.com/watch?v=dIh1eOw0zV8&t=9s
+
+
+tools:
+server.py starts a small HTTP server locally that sends out responds based on requests.
+client.py sends requests to said server.
+the submitted version tests max-age and no-cache revalidation.
