@@ -7,6 +7,7 @@
 #include <pthread.h>
 
 #include <ctime>
+#include <exception>
 #include <fstream>
 #include <iostream>
 #include <string_view>
@@ -23,9 +24,7 @@ class Cache {
   unordered_map<string, response<dynamic_body> > response_map;
   vector<string> request_list;
   size_t capacity;
-
   pthread_rwlock_t * cache_rwlock;
-
   pthread_mutex_t * log_lock;
   ofstream & lFile;
 

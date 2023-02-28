@@ -1,15 +1,11 @@
 #include "Proxy.hpp"
+
 #include <unistd.h>
 
 using namespace std;
 using namespace boost;
 using namespace boost::beast;
 using namespace asio::ip;
-
-long long unsigned id = 0;
-pthread_rwlock_t cache_rwlock = PTHREAD_RWLOCK_INITIALIZER;
-pthread_mutex_t log_lock = PTHREAD_MUTEX_INITIALIZER;
-ofstream lFile("proxy.log");
 
 vector<string> Proxy::get_addr(string s_info) {
   int col = s_info.find(":");
@@ -30,10 +26,13 @@ vector<string> Proxy::get_addr(string s_info) {
 }
 
 Proxy::Proxy(const char * port) :
+    lFile(ofstream("proxy.log")),
+
     port(port),
     acc(io_context, tcp::endpoint(tcp::v4(), atoi(port))),
     cache(Cache(1000, &cache_rwlock, &log_lock, lFile)) {
 }
+
 Proxy::Proxy() : Proxy("12345") {
 }
 
@@ -41,6 +40,7 @@ void Proxy::begin_proxy() {
   while (1) {
     tcp::socket * user_sock = new tcp::socket(io_context);
     acc.accept(*user_sock);
+    //cout << "connected to client\n";
     int x;
     x = id;
     id++;
@@ -91,6 +91,32 @@ void Proxy::handle_connect(tcp::socket * user_sock, tcp::socket * server_sock, i
   }
 }
 
+// on catching exception, write error log, respond client with error http response, close both sockets
+void Proxy::handle_exception(tcp::socket * user_sock,
+                             tcp::socket * server_sock,
+                             int x,
+                             int err) {
+  system::error_code ec;
+  string pre = "HTTP/1.1 ";
+  string post = "\r\n\r\n";
+  string b;
+  if (err == 400) {
+    b = "400 Bad Request";
+  }
+  else if (err == 502) {
+    b = "502 Bad Gateway";
+  }
+
+  pthread_mutex_lock(&log_lock);
+  lFile << x << ": Responding \"" << pre << b << "\"" << endl;
+  pthread_mutex_unlock(&log_lock);
+  asio::write(*user_sock, asio::buffer(pre + b + post), ec);
+  server_sock->close();
+  user_sock->close();
+  delete user_sock;
+  return;
+}
+
 bool Proxy::check_with_cache(request<dynamic_body> & req,
                              tcp::socket * user_sock,
                              tcp::socket * server_sock,
@@ -103,7 +129,14 @@ bool Proxy::check_with_cache(request<dynamic_body> & req,
     ver = "HTTP/1.1";
   }
   if (cache.check_read(x, req, user_sock, server_sock) == 0) {
-    http::write(*user_sock, cache.get_cached_response(req));
+    response<dynamic_body> res = cache.get_cached_response(req);
+    http::write(*user_sock, res);
+
+    pthread_mutex_lock(&log_lock);
+    lFile << x << ": Responding \"" << ver << " " << res.result_int() << " "
+          << res.result() << "\"" << endl;
+    pthread_mutex_unlock(&log_lock);
+
     server_sock->close();
     user_sock->close();
     delete user_sock;
@@ -141,12 +174,11 @@ string Proxy::get_ver(response<dynamic_body> & res) {
 }
 
 void Proxy::transmit(tcp::socket * user_sock, int x) {
-  system::error_code ec;
   tcp::resolver resolver(io_context);
   tcp::socket server_sock(io_context);
   beast::flat_buffer u_buffer;
   http::request<http::dynamic_body> req;
-
+  //cout << "here\n";
   try {
     http::read(*user_sock, u_buffer, req);
     string ver = get_ver(req);
@@ -158,19 +190,11 @@ void Proxy::transmit(tcp::socket * user_sock, int x) {
 
     string s_info = string(req.at("HOST"));
     vector<string> hp = get_addr(s_info);
-
     asio::connect(server_sock, resolver.resolve(hp[0], hp[1]));
   }
-  
+
   catch (...) {
-  pthread_mutex_lock(&log_lock);
-    lFile << x << ": Received \"" << ver << " 400 Bad Request " 
-          << "\" from " << req.at("HOST") << endl;
-    pthread_mutex_unlock(&log_lock);
-    asio::write(*user_sock, asio::buffer("HTTP/1.1 400 Bad Request\r\n\r\n"), ec);
-    server_sock.close();
-    user_sock->close();
-    delete user_sock;
+    handle_exception(user_sock, &server_sock, x, 400);
     return;
   }
   try {
@@ -180,22 +204,16 @@ void Proxy::transmit(tcp::socket * user_sock, int x) {
     }
 
     if (req.method_string() == "GET") {
-      if(check_with_cache(req, user_sock, &server_sock, x)){return;}
+      if (check_with_cache(req, user_sock, &server_sock, x)) {
+        return;
+      }
     }
 
     try {
       http::write(server_sock, req);
     }
     catch (...) {
-    
-      pthread_mutex_lock(&log_lock);
-    lFile << x << ": Received \"" << ver << " 502 Bad Gateway " 
-          << "\" from " << req.at("HOST") << endl;
-    pthread_mutex_unlock(&log_lock);
-      asio::write(*user_sock, asio::buffer("HTTP/1.1 502 Bad Gateway\r\n\r\n"), ec);
-      server_sock.close();
-      user_sock->close();
-      delete user_sock;
+      handle_exception(user_sock, &server_sock, x, 502);
       return;
     }
     http::response<http::dynamic_body> res;
@@ -205,6 +223,8 @@ void Proxy::transmit(tcp::socket * user_sock, int x) {
     pthread_mutex_lock(&log_lock);
     lFile << x << ": Received \"" << ver << " " << res.result_int() << " " << res.result()
           << "\" from " << req.at("HOST") << endl;
+    lFile << x << ": Responding \"" << ver << " " << res.result_int() << " "
+          << res.result() << "\"" << endl;
     pthread_mutex_unlock(&log_lock);
 
     if (cache.check_store(x, req, res)) {
@@ -221,22 +241,14 @@ void Proxy::transmit(tcp::socket * user_sock, int x) {
   }
 
   catch (...) {
-  
-        pthread_mutex_lock(&log_lock);
-    lFile << x << ": Received \"" << ver << " 500 Internal Server Error " 
-          << "\" from " << req.at("HOST") << endl;
-    pthread_mutex_unlock(&log_lock);
-    asio::write(*user_sock, asio::buffer("HTTP/1.1 500 Internal Server Error\r\n\r\n"), ec);
-    server_sock.close();
-    user_sock->close();
-    delete user_sock;
+    handle_exception(user_sock, &server_sock, x, 502);
     return;
   }
 }
 
 int main() {
-  // be_daemon();
- // daemon(1, 1);
+  // daemon(1, 1);
+  // daemon(0, 0);
   Proxy p;
   p.begin_proxy();
   return 1;

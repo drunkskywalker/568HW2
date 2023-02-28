@@ -7,6 +7,10 @@ using namespace asio::ip;
 
 class Proxy {
  private:
+  long long unsigned id = 0;
+  pthread_rwlock_t cache_rwlock = PTHREAD_RWLOCK_INITIALIZER;
+  pthread_mutex_t log_lock = PTHREAD_MUTEX_INITIALIZER;
+  ofstream lFile;
   system::error_code err;
   asio::io_context io_context;
   const char * port;
@@ -20,6 +24,11 @@ class Proxy {
                         int x);
   string get_ver(request<dynamic_body> & req);
   string get_ver(response<dynamic_body> & res);
+
+  void handle_exception(tcp::socket * user_sock,
+                        tcp::socket * server_sock,
+                        int x,
+                        int err);
 
  public:
   Proxy(const char * port);

@@ -71,7 +71,7 @@ string Cache::check_time(response<dynamic_body> & res) {
     for (size_t i = 0; i < vars.size(); i++) {
       if (vars[i].substr(0, 8) == "max-age=") {
         int ma = stoi(vars[i].substr(8));
-        cout << "maxage:" << ma << endl;
+        //cout << "maxage:" << ma << endl;
         if (ma == -1) {
           return "-1";
         }
@@ -117,15 +117,19 @@ bool Cache::check_with_server(int id,
                               tcp::socket * server_sock) {
   // cout << res;
   if (res.find(field::last_modified) != res.end()) {
-    // cout << "has lm";
+  pthread_mutex_lock(log_lock);
+  lFile << id << ": NOTE last_modified: " << string(res.at("Last-Modified")) << endl;
+  pthread_mutex_unlock(log_lock);
     req.set(field::if_modified_since, string(res.at("Last-Modified")));
   }
   if (res.find(field::etag) != res.end()) {
-    // cout << "has etag";
+  pthread_mutex_lock(log_lock);
+  lFile << id << ": NOTE ETag: " << string(res.at("ETag")) << endl;
+  pthread_mutex_unlock(log_lock);
     req.set(beast::http::field::if_none_match, string(res.at("ETag")));
   }
 
-  cout << req;
+  //cout << req;
   string ver;
   if (req.version() == 10) {
     ver = "HTTP/1.0";
@@ -135,7 +139,7 @@ bool Cache::check_with_server(int id,
   }
   pthread_mutex_lock(log_lock);
   posix_time::ptime recv_time = posix_time::second_clock::universal_time();
-  lFile << id << ": re-validation with server" << endl;
+  lFile << id << ": NOTE re-validation with server" << endl;
   lFile << id << ": " << req.method() << " " << req.target() << " " << ver << " from "
         << user_sock->remote_endpoint().address() << " @ " << recv_time << endl;
   pthread_mutex_unlock(log_lock);
@@ -143,9 +147,9 @@ bool Cache::check_with_server(int id,
 
   response<dynamic_body> res_new;
   beast::flat_buffer response_buffer;
-  read(*server_sock, response_buffer, res);
+  read(*server_sock, response_buffer, res_new);
 
-  if (res.version() == 10) {
+  if (res_new.version() == 10) {
     ver = "HTTP/1.0";
   }
   else {
@@ -156,11 +160,14 @@ bool Cache::check_with_server(int id,
         << res_new.result() << "\" from " << req.at("HOST") << endl;
   pthread_mutex_unlock(log_lock);
   if (res_new.result_int() == 304) {
+    pthread_mutex_lock(log_lock);
+  lFile << id << ": NOTE 304: Not Modified, use cached result" << endl;
+  pthread_mutex_unlock(log_lock);
+  
     return true;
   }
   else if (res_new.result_int() == 200) {
-    try_add(req, res_new);
-    cout << res_new;
+
     return false;
   }
   return false;

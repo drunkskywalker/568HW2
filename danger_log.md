@@ -2,9 +2,15 @@ If http request contains Connection: keep-alive and the response length happens 
 
 Caching with max-age field does not correctly log the expire date. // fixed
 
+Caching is not thread-safe. // fixed using r/w lock
+
 Double freeing when extracted method from main transmit() method. // fixed
 
 Can only tell if a tunnel has closed when either side tries to write to a closed socket, instead of getting that the connection should have been closed in time.
 
-Exception handling is too general.
+Exception handling is too general. No request/response specific handling.
+
+If cache is validated by server, the new 304 response is returned to the client instead of the cached 200 response. // fixed
+
+
 
