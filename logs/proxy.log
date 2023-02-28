@@ -1,0 +1,8 @@
+0: GET / HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 22:58:47
+0: Responding "HTTP/1.1 400 Bad Request"
+1: GET / HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 22:58:47
+1: Responding "HTTP/1.1 400 Bad Request"
+2: GET /a HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 22:58:47
+2: Responding "HTTP/1.1 400 Bad Request"
+3: GET /a HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 22:58:47
+3: Responding "HTTP/1.1 400 Bad Request"
