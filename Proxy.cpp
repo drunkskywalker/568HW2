@@ -38,12 +38,19 @@ Proxy::Proxy() : Proxy("12345") {
 
 void Proxy::begin_proxy() {
   while (1) {
-    tcp::socket * user_sock = new tcp::socket(io_context);
-    acc.accept(*user_sock);
+    tcp::socket * user_sock;
+    try {
+      user_sock = new tcp::socket(io_context);
+      acc.accept(*user_sock);
+    }
+    catch (...) {
+      continue;
+    }
     //cout << "connected to client\n";
     int x;
     x = id;
     id++;
+
     thread t(&Proxy::transmit, this, user_sock, x);
     t.detach();
   }

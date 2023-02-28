@@ -1,63 +1,83 @@
-0: GET / HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 19:32:08
+0: GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file2.html HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:36:58
 0: not in cache
-0: Requesting "GET / HTTP/1.1" from 0.0.0.0
-0: Received "HTTP/1.1 200 OK" from 0.0.0.0
+0: Requesting "GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file2.html HTTP/1.1" from gaia.cs.umass.edu
+0: Received "HTTP/1.1 200 OK" from gaia.cs.umass.edu
 0: Responding "HTTP/1.1 200 OK"
-0: cached, but requires re-validation
-1: GET / HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 19:32:09
-1: in cache, requires revalidation
-1: NOTE ETag: aaa
-1: NOTE re-validation with server
-1: GET / HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 19:32:09
-1: Received "HTTP/1.1 304 Not Modified" from 0.0.0.0
-1: NOTE 304: Not Modified, use cached result
-1: Responding "HTTP/1.1 200 OK"
-2: GET / HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 19:32:10
-2: in cache, requires revalidation
-2: NOTE ETag: aaa
-2: NOTE re-validation with server
-2: GET / HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 19:32:10
-2: Received "HTTP/1.1 304 Not Modified" from 0.0.0.0
-2: NOTE 304: Not Modified, use cached result
-2: Responding "HTTP/1.1 200 OK"
-3: GET / HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 19:36:51
-3: in cache, requires revalidation
-3: NOTE ETag: aaa
-3: NOTE re-validation with server
-3: GET / HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 19:36:51
-3: Received "HTTP/1.1 304 Not Modified" from 0.0.0.0
-3: NOTE 304: Not Modified, use cached result
+0: cached, expires at -1
+1: GET http://gaia.cs.umass.edu/favicon.ico HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:36:58
+1: not in cache
+1: Requesting "GET http://gaia.cs.umass.edu/favicon.ico HTTP/1.1" from gaia.cs.umass.edu
+1: Received "HTTP/1.1 404 Not Found" from gaia.cs.umass.edu
+1: Responding "HTTP/1.1 404 Not Found"
+1: not cachable because not 200 OK
+3: GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file2.html HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:36:59
+3: in cache, valid
 3: Responding "HTTP/1.1 200 OK"
-4: GET / HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 19:37:32
-4: in cache, requires revalidation
-4: NOTE ETag: aaa
-4: NOTE re-validation with server
-4: GET / HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 19:37:32
-4: Received "HTTP/1.1 304 Not Modified" from 0.0.0.0
-4: NOTE 304: Not Modified, use cached result
-4: Responding "HTTP/1.1 200 OK"
-5: GET / HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 19:38:10
-5: in cache, requires revalidation
-5: NOTE ETag: aaa
-5: NOTE re-validation with server
-5: GET / HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 19:38:10
-5: Received "HTTP/1.1 304 Not Modified" from 0.0.0.0
-5: NOTE 304: Not Modified, use cached result
+4: CONNECT clients4.google.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:00
+2: GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file2.html HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:00
+2: in cache, valid
+2: Responding "HTTP/1.1 200 OK"
+5: GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file2.html HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:00
+5: in cache, valid
 5: Responding "HTTP/1.1 200 OK"
-6: GET / HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 19:38:10
-6: in cache, requires revalidation
-6: NOTE ETag: aaa
-6: NOTE re-validation with server
-6: GET / HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 19:38:10
-6: Received "HTTP/1.1 304 Not Modified" from 0.0.0.0
-6: NOTE 304: Not Modified, use cached result
-6: Responding "HTTP/1.1 200 OK"
-7: GET /a HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 19:38:10
+6: GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file1.html HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:02
+6: not in cache
+6: Requesting "GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file1.html HTTP/1.1" from gaia.cs.umass.edu
+6: Received "HTTP/1.1 304 Not Modified" from gaia.cs.umass.edu
+6: Responding "HTTP/1.1 304 Not Modified"
+6: not cachable because not 200 OK
+7: GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file1.html HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:02
 7: not in cache
-7: Requesting "GET /a HTTP/1.1" from 0.0.0.0
-7: Received "HTTP/1.1 200 OK" from 0.0.0.0
-7: Responding "HTTP/1.1 200 OK"
-7: cached, expires at -1
-8: GET /a HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 19:38:10
-8: in cache, valid
-8: Responding "HTTP/1.1 200 OK"
+7: Requesting "GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file1.html HTTP/1.1" from gaia.cs.umass.edu
+7: Received "HTTP/1.1 304 Not Modified" from gaia.cs.umass.edu
+7: Responding "HTTP/1.1 304 Not Modified"
+7: not cachable because not 200 OK
+8: GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file1.html HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:02
+8: not in cache
+8: Requesting "GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file1.html HTTP/1.1" from gaia.cs.umass.edu
+8: Received "HTTP/1.1 304 Not Modified" from gaia.cs.umass.edu
+8: Responding "HTTP/1.1 304 Not Modified"
+8: not cachable because not 200 OK
+9: GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file3.html HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:05
+9: not in cache
+9: Requesting "GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file3.html HTTP/1.1" from gaia.cs.umass.edu
+9: Received "HTTP/1.1 200 OK" from gaia.cs.umass.edu
+9: Responding "HTTP/1.1 200 OK"
+9: cached, expires at -1
+10: GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file3.html HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:05
+10: in cache, valid
+10: Responding "HTTP/1.1 200 OK"
+11: GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file3.html HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:05
+11: in cache, valid
+11: Responding "HTTP/1.1 200 OK"
+13: CONNECT www.google.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:06
+14: CONNECT www.youtube.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:16
+15: CONNECT history.google.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:36
+16: CONNECT history.google.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:36
+12: Responding "HTTP/1.1 400 Bad Request"
+17: CONNECT history.google.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:47
+18: CONNECT android.clients.google.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:47
+19: CONNECT clients4.google.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:47
+20: CONNECT github.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:51
+21: CONNECT github.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:51
+22: CONNECT github.githubassets.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:51
+23: CONNECT avatars.githubusercontent.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:51
+24: CONNECT github.githubassets.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:51
+27: CONNECT github.githubassets.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:51
+26: CONNECT github.githubassets.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:51
+25: CONNECT github.githubassets.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:51
+28: CONNECT github.githubassets.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:51
+28: tunnel closed
+22: tunnel closed
+29: CONNECT github.githubassets.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:52
+30: CONNECT collector.github.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:52
+31: CONNECT api.github.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:52
+32: CONNECT alive.github.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:52
+33: CONNECT www.youtube.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:54
+34: CONNECT www.google.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:54
+35: CONNECT www.google.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:57
+37: CONNECT www.gstatic.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:57
+36: CONNECT lh3.googleusercontent.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:57
+39: CONNECT www.gstatic.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:57
+38: CONNECT www.gstatic.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:57
+40: CONNECT apis.google.com:443 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 21:37:57
