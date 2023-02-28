@@ -26,7 +26,7 @@ vector<string> Proxy::get_addr(string s_info) {
 }
 
 Proxy::Proxy(const char * port) :
-    lFile(ofstream("proxy.log")),
+    lFile(ofstream("/var/log/erss/proxy.log")),
 
     port(port),
     acc(io_context, tcp::endpoint(tcp::v4(), atoi(port))),

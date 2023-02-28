@@ -1,3 +1,4 @@
+TARGETS=proxy
 proxy: Proxy.cpp Cache.cpp
 	g++ $^ -g -o $@ -lpthread
 
