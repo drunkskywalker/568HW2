@@ -71,21 +71,23 @@ string Cache::check_time(response<dynamic_body> & res) {
     for (size_t i = 0; i < vars.size(); i++) {
       if (vars[i].substr(0, 8) == "max-age=") {
         int ma = stoi(vars[i].substr(8));
+        cout << "maxage:" << ma << endl;
         if (ma == -1) {
           return "-1";
         }
-      }
-    }
-    if (ma != -2) {
-      posix_time::time_duration d(0, 0, ma);
+        
+        if (ma != -2) {      posix_time::time_duration d(0, 0, ma);
 
       posix_time::ptime ex = res_date + d;
-      if (now >= ex) {
+
         stringstream ss_re;
         ss_re << ex;
         return ss_re.str();
       }
+        break;
+      }
     }
+
   }
 
   if (res.find("Expires") != res.end()) {
@@ -98,11 +100,11 @@ string Cache::check_time(response<dynamic_body> & res) {
     std::tm tm = {};
     ss >> get_time(&tm, "%a, %d %b %Y %H:%M:%S %Z");
     ptime exp = ptime_from_tm(tm);
-    if (now >= exp) {
+
       stringstream ss_re;
       ss_re << exp;
       return ss_re.str();
-    }
+    
   }
 
   return "0";
@@ -199,7 +201,8 @@ bool Cache::check_store(int id,
     }
   }
   string exptime = check_time(res);
-  if (exptime == "-1") {
+
+    if (exptime == "-1") {
     pthread_mutex_lock(log_lock);
     lFile << id << ": not cachable because Cache-Control max-age=-1" << endl;
     pthread_mutex_unlock(log_lock);
@@ -264,9 +267,25 @@ int Cache::check_read(int id,
   }
 
   if (check_time(res) != "0") {
+    istringstream ss(check_time(res));
+  locale loc(ss.getloc(), new posix_time::time_input_facet("%Y-%b-%d %H:%M:%S"));
+  ss.imbue(loc);
+    std::tm tm = {};
+    ss >> get_time(&tm, "%Y-%b-%d %H:%M:%S");
+    ptime exp = ptime_from_tm(tm);
+    ptime now = second_clock::universal_time();
+    if (now >= exp){
     pthread_mutex_lock(log_lock);
     lFile << id << ": in cache, but expired at " << exp << endl;
     pthread_mutex_unlock(log_lock);
+    
+    }
+    else {
+        pthread_mutex_lock(log_lock);
+    lFile << id << ": in cache, valid\n";
+    pthread_mutex_unlock(log_lock);
+    return 0;
+    }
   }
 
   if (nocache) {

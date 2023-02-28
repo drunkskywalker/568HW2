@@ -91,7 +91,7 @@ void Proxy::handle_connect(tcp::socket * user_sock, tcp::socket * server_sock, i
   }
 }
 
-void Proxy::check_with_cache(request<dynamic_body> & req,
+bool Proxy::check_with_cache(request<dynamic_body> & req,
                              tcp::socket * user_sock,
                              tcp::socket * server_sock,
                              int x) {
@@ -107,7 +107,7 @@ void Proxy::check_with_cache(request<dynamic_body> & req,
     server_sock->close();
     user_sock->close();
     delete user_sock;
-    return;
+    return true;
   }
   else {
     pthread_mutex_lock(&log_lock);
@@ -115,6 +115,7 @@ void Proxy::check_with_cache(request<dynamic_body> & req,
           << "\" from " << req.at("HOST") << endl;
     pthread_mutex_unlock(&log_lock);
   }
+  return false;
 }
 
 string Proxy::get_ver(request<dynamic_body> & req) {
@@ -175,7 +176,7 @@ void Proxy::transmit(tcp::socket * user_sock, int x) {
     }
 
     if (req.method_string() == "GET") {
-      check_with_cache(req, user_sock, &server_sock, x);
+      if(check_with_cache(req, user_sock, &server_sock, x)){return;}
     }
 
     try {
@@ -221,7 +222,7 @@ void Proxy::transmit(tcp::socket * user_sock, int x) {
 
 int main() {
   // be_daemon();
-  daemon(0, 0);
+ // daemon(1, 1);
   Proxy p;
   p.begin_proxy();
   return 1;

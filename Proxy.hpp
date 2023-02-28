@@ -14,7 +14,7 @@ class Proxy {
   Cache cache;
   vector<string> get_addr(string s_info);
   void handle_connect(tcp::socket * user_sock, tcp::socket * server_sock, int x);
-  void check_with_cache(request<dynamic_body> & req,
+  bool check_with_cache(request<dynamic_body> & req,
                         tcp::socket * user_sock,
                         tcp::socket * server_sock,
                         int x);
