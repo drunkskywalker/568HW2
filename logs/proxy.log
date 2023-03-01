@@ -1,40 +1,114 @@
-0: CONNECT www.google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:11
-2: CONNECT fonts.gstatic.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:11
-1: CONNECT fonts.gstatic.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:11
-3: CONNECT fonts.gstatic.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:11
-4: CONNECT www.gstatic.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:12
-5: CONNECT lh3.googleusercontent.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:12
-6: CONNECT play.google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:12
-7: CONNECT apis.google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:12
-8: CONNECT play.google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:12
-9: CONNECT vcm.duke.edu:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:13
-10: CONNECT vcm.duke.edu:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:13
-11: CONNECT shib.oit.duke.edu:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:13
-12: CONNECT adservice.google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:13
-13: CONNECT shib.oit.duke.edu:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:14
-14: CONNECT shib.oit.duke.edu:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:14
-16: CONNECT shib.oit.duke.edu:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:14
-15: CONNECT shib.oit.duke.edu:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:14
-17: CONNECT shib.oit.duke.edu:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:14
-18: CONNECT beacon.oit.duke.edu:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:14
-18: tunnel closed
-19: CONNECT www.google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:16
-20: CONNECT ogs.google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:16
-21: CONNECT lh3.googleusercontent.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:16
-23: CONNECT www.gstatic.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:16
-22: CONNECT www.gstatic.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:16
-24: CONNECT www.gstatic.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:16
-25: CONNECT ssl.gstatic.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:16
-26: CONNECT apis.google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:17
-27: CONNECT ogs.google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:21
-28: CONNECT ssl.gstatic.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:22
-29: CONNECT fonts.gstatic.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:22
-30: CONNECT clients4.google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:22
-31: CONNECT www.youtube-nocookie.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:23
-32: CONNECT www.youtube.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:26
-33: CONNECT c.go-mpulse.net:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:54
-34: CONNECT neat-iodine-05e.notion.site:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:04:08
-36: CONNECT google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:04:27
-35: CONNECT beacons.gcp.gvt2.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:04:27
-37: CONNECT alive.github.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:04:59
-38: CONNECT exp.notion.so:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:05:54
+0: CONNECT push.services.mozilla.com:443 HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 03:59:38
+1: CONNECT firefox.settings.services.mozilla.com:443 HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 03:59:39
+2: CONNECT content-signature-2.cdn.mozilla.net:443 HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 03:59:40
+3: CONNECT mozilla.cloudflare-dns.com:443 HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 03:59:40
+4: GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 03:59:43
+4: not in cache
+4: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
+4: Received "HTTP/1.1 200 OK" from www.httpwatch.com
+4: Responding "HTTP/1.1 200 OK"
+4: cached, but requires re-validation
+5: CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 03:59:47
+7: CONNECT mirror.cedia.org.ec:443 HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 03:59:47
+6: CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 03:59:47
+8: POST http://ocsp.godaddy.com/ HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 03:59:48
+8: Received "HTTP/1.1 200 OK" from ocsp.godaddy.com
+8: Responding "HTTP/1.1 200 OK"
+9: CONNECT ublockorigin.pages.dev:443 HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:00:49
+10: POST http://e1.o.lencr.org/ HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:00:49
+10: Received "HTTP/1.1 200 OK" from e1.o.lencr.org
+10: Responding "HTTP/1.1 200 OK"
+11: GET http://www-net.cs.umass.edu/wireshark-labs/Wireshark_HTTP_v8.0.pdf HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:00:53
+11: not in cache
+11: Requesting "GET http://www-net.cs.umass.edu/wireshark-labs/Wireshark_HTTP_v8.0.pdf HTTP/1.1" from www-net.cs.umass.edu
+11: Received "HTTP/1.1 200 OK" from www-net.cs.umass.edu
+11: Responding "HTTP/1.1 200 OK"
+11: cached, expires at -1
+12: GET http://www-net.cs.umass.edu/favicon.ico HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:00:54
+12: not in cache
+12: Requesting "GET http://www-net.cs.umass.edu/favicon.ico HTTP/1.1" from www-net.cs.umass.edu
+12: Received "HTTP/1.1 404 Not Found" from www-net.cs.umass.edu
+12: Responding "HTTP/1.1 404 Not Found"
+12: not cachable because not 200 OK
+13: CONNECT contile.services.mozilla.com:443 HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:01:43
+15: CONNECT spocs.getpocket.com:443 HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:01:43
+14: CONNECT getpocket.cdn.mozilla.net:443 HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:01:43
+16: GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:01:43
+16: in cache, requires revalidation
+16: NOTE re-validation with server
+16: GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:01:43
+17: POST http://r3.o.lencr.org/ HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:01:44
+18: POST http://r3.o.lencr.org/ HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:01:44
+19: POST http://ocsp.sca1b.amazontrust.com/ HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:01:44
+19: Received "HTTP/1.1 200 OK" from ocsp.sca1b.amazontrust.com
+19: Responding "HTTP/1.1 200 OK"
+18: Received "HTTP/1.1 200 OK" from r3.o.lencr.org
+18: Responding "HTTP/1.1 200 OK"
+17: Received "HTTP/1.1 200 OK" from r3.o.lencr.org
+17: Responding "HTTP/1.1 200 OK"
+20: CONNECT firefox.settings.services.mozilla.com:443 HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:01:44
+21: CONNECT contile-images.services.mozilla.com:443 HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:01:44
+22: CONNECT contile-images.services.mozilla.com:443 HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:01:44
+23: CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:01:44
+24: POST http://r3.o.lencr.org/ HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:01:44
+24: Received "HTTP/1.1 200 OK" from r3.o.lencr.org
+24: Responding "HTTP/1.1 200 OK"
+25: POST http://r3.o.lencr.org/ HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:01:44
+25: Received "HTTP/1.1 200 OK" from r3.o.lencr.org
+25: Responding "HTTP/1.1 200 OK"
+16: Received "HTTP/1.1 200 OK" from www.httpwatch.com
+16: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
+26: CONNECT pgl.yoyo.org:443 HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:01:50
+27: POST http://r3.o.lencr.org/ HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:01:50
+27: Received "HTTP/1.1 200 OK" from r3.o.lencr.org
+27: Responding "HTTP/1.1 200 OK"
+16: Received "HTTP/1.1 200 OK" from www.httpwatch.com
+16: Responding "HTTP/1.1 200 OK"
+16: cached, but requires re-validation
+28: GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file2.html HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:01:58
+28: not in cache
+28: Requesting "GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file2.html HTTP/1.1" from gaia.cs.umass.edu
+28: Received "HTTP/1.1 200 OK" from gaia.cs.umass.edu
+28: Responding "HTTP/1.1 200 OK"
+28: cached, expires at -1
+29: GET http://gaia.cs.umass.edu/favicon.ico HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:01:58
+29: not in cache
+29: Requesting "GET http://gaia.cs.umass.edu/favicon.ico HTTP/1.1" from gaia.cs.umass.edu
+29: Received "HTTP/1.1 404 Not Found" from gaia.cs.umass.edu
+29: Responding "HTTP/1.1 404 Not Found"
+29: not cachable because not 200 OK
+30: CONNECT cdn.jsdelivr.net:443 HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:02:51
+31: CONNECT ublockorigin.github.io:443 HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:03:52
+32: CONNECT www.google.com:443 HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:05:13
+33: POST http://ocsp.pki.goog/gts1c3 HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:05:14
+33: Received "HTTP/1.1 200 OK" from ocsp.pki.goog
+33: Responding "HTTP/1.1 200 OK"
+34: GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file3.html HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:05:19
+34: not in cache
+34: Requesting "GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file3.html HTTP/1.1" from gaia.cs.umass.edu
+34: Received "HTTP/1.1 200 OK" from gaia.cs.umass.edu
+34: Responding "HTTP/1.1 200 OK"
+34: cached, expires at -1
+35: CONNECT cdn.statically.io:443 HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:05:53
+36: GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file4.html HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:05:59
+36: not in cache
+36: Requesting "GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file4.html HTTP/1.1" from gaia.cs.umass.edu
+36: Received "HTTP/1.1 200 OK" from gaia.cs.umass.edu
+36: Responding "HTTP/1.1 200 OK"
+36: cached, expires at -1
+37: GET http://gaia.cs.umass.edu/pearson.png HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:06:00
+38: GET http://kurose.cslash.net/8E_cover_small.jpg HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:06:00
+37: not in cache
+37: Requesting "GET http://gaia.cs.umass.edu/pearson.png HTTP/1.1" from gaia.cs.umass.edu
+37: Received "HTTP/1.1 200 OK" from gaia.cs.umass.edu
+37: Responding "HTTP/1.1 200 OK"
+37: cached, expires at -1
+38: not in cache
+38: Requesting "GET http://kurose.cslash.net/8E_cover_small.jpg HTTP/1.1" from kurose.cslash.net
+38: Received "HTTP/1.1 301 Moved Permanently" from kurose.cslash.net
+38: Responding "HTTP/1.1 301 Moved Permanently"
+38: not cachable because not 200 OK
+39: CONNECT kurose.cslash.net:443 HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:06:01
+40: POST http://r3.o.lencr.org/ HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:06:01
+40: Received "HTTP/1.1 200 OK" from r3.o.lencr.org
+40: Responding "HTTP/1.1 200 OK"

@@ -9,6 +9,15 @@ GET:
 
 http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx
 
+The results are as follows:
+
+4: GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 03:59:43
+4: not in cache
+4: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
+4: Received "HTTP/1.1 200 OK" from www.httpwatch.com
+4: Responding "HTTP/1.1 200 OK"
+4: cached, but requires re-validation
+
 http://httpbin.org/forms/post
 
 The results are as follows:
@@ -46,6 +55,15 @@ The results are as follows:
 
 http://www-net.cs.umass.edu/wireshark-labs/Wireshark_HTTP_v8.0.pdf
 
+The results are as follows:
+
+11: GET http://www-net.cs.umass.edu/wireshark-labs/Wireshark_HTTP_v8.0.pdf HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:00:53
+11: not in cache
+11: Requesting "GET http://www-net.cs.umass.edu/wireshark-labs/Wireshark_HTTP_v8.0.pdf HTTP/1.1" from www-net.cs.umass.edu
+11: Received "HTTP/1.1 200 OK" from www-net.cs.umass.edu
+11: Responding "HTTP/1.1 200 OK"
+11: cached, expires at -1
+
 http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file1.html
 
 The results are as follows:
@@ -62,9 +80,36 @@ The results are as follows:
 
 http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file2.html
 
+The results are as follows:
+
+28: GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file2.html HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:01:58
+28: not in cache
+28: Requesting "GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file2.html HTTP/1.1" from gaia.cs.umass.edu
+28: Received "HTTP/1.1 200 OK" from gaia.cs.umass.edu
+28: Responding "HTTP/1.1 200 OK"
+28: cached, expires at -1
+
 http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file3.html
 
+The results are as follows:
+
+34: GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file3.html HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:05:19
+34: not in cache
+34: Requesting "GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file3.html HTTP/1.1" from gaia.cs.umass.edu
+34: Received "HTTP/1.1 200 OK" from gaia.cs.umass.edu
+34: Responding "HTTP/1.1 200 OK"
+34: cached, expires at -1
+
 http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file4.html
+
+The results are as follows:
+
+37: GET http://gaia.cs.umass.edu/pearson.png HTTP/1.1 from 174.109.84.125 @ 2023-Mar-01 04:06:00
+37: not in cache
+37: Requesting "GET http://gaia.cs.umass.edu/pearson.png HTTP/1.1" from gaia.cs.umass.edu
+37: Received "HTTP/1.1 200 OK" from gaia.cs.umass.edu
+37: Responding "HTTP/1.1 200 OK"
+37: cached, expires at -1
 
 POST:
 

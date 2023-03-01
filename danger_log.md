@@ -5,6 +5,7 @@ Danger log
 2. Caching with max-age field does not correctly log the expire date. // fixed
 
 3. Caching is not thread-safe. // fixed using r/w lock
+
 4. An unlock with no lock pairing with it, effectively blocking the thread. // fixed
 
 5. Double freeing when extracted method from main transmit() method. // fixed
@@ -20,7 +21,8 @@ Danger log
 11. If max-age is 0, the proxy should re-validate the cache on every access, but there is chance that if 2 requests are made extremely close, one of the requests will have a change to directly use the cached respond without revalidation.
 12. if daemon() returns -1 the program will continue to execute, but as a normal process.
 
-
+Cache Policy:
+- store up to 1000 responses (or more if you change the value). Replacement with LIFO, so the oldest record is removed if there is no more space. Remove expired files. 
 
 Guarantee:
 
