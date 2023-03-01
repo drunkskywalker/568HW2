@@ -1,20 +1,40 @@
-0: GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1 from 10.197.217.80 @ 2023-Feb-28 23:42:28
-0: not in cache
-0: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
-0: Received "HTTP/1.1 200 OK" from www.httpwatch.com
-0: Responding "HTTP/1.1 200 OK"
-0: cached, but requires re-validation
-2: CONNECT fonts.gstatic.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Feb-28 23:42:32
-3: CONNECT www.google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Feb-28 23:42:32
-4: CONNECT www.gstatic.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Feb-28 23:42:32
-1: GET http://www.httpwatch.com/favicon.ico HTTP/1.1 from 10.197.217.80 @ 2023-Feb-28 23:42:32
-1: not in cache
-1: Requesting "GET http://www.httpwatch.com/favicon.ico HTTP/1.1" from www.httpwatch.com
-1: Received "HTTP/1.1 200 OK" from www.httpwatch.com
-1: Responding "HTTP/1.1 200 OK"
-1: cached, expires at 2023-Feb-28 23:42:32
-5: CONNECT play.google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Feb-28 23:42:33
-6: CONNECT adservice.google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Feb-28 23:42:34
-7: CONNECT clients4.google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Feb-28 23:42:37
-8: CONNECT ogs.google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Feb-28 23:42:37
-9: CONNECT ssl.gstatic.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Feb-28 23:42:37
+0: CONNECT www.google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:11
+2: CONNECT fonts.gstatic.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:11
+1: CONNECT fonts.gstatic.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:11
+3: CONNECT fonts.gstatic.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:11
+4: CONNECT www.gstatic.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:12
+5: CONNECT lh3.googleusercontent.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:12
+6: CONNECT play.google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:12
+7: CONNECT apis.google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:12
+8: CONNECT play.google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:12
+9: CONNECT vcm.duke.edu:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:13
+10: CONNECT vcm.duke.edu:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:13
+11: CONNECT shib.oit.duke.edu:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:13
+12: CONNECT adservice.google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:13
+13: CONNECT shib.oit.duke.edu:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:14
+14: CONNECT shib.oit.duke.edu:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:14
+16: CONNECT shib.oit.duke.edu:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:14
+15: CONNECT shib.oit.duke.edu:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:14
+17: CONNECT shib.oit.duke.edu:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:14
+18: CONNECT beacon.oit.duke.edu:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:14
+18: tunnel closed
+19: CONNECT www.google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:16
+20: CONNECT ogs.google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:16
+21: CONNECT lh3.googleusercontent.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:16
+23: CONNECT www.gstatic.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:16
+22: CONNECT www.gstatic.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:16
+24: CONNECT www.gstatic.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:16
+25: CONNECT ssl.gstatic.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:16
+26: CONNECT apis.google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:17
+27: CONNECT ogs.google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:21
+28: CONNECT ssl.gstatic.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:22
+29: CONNECT fonts.gstatic.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:22
+30: CONNECT clients4.google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:22
+31: CONNECT www.youtube-nocookie.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:23
+32: CONNECT www.youtube.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:26
+33: CONNECT c.go-mpulse.net:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:03:54
+34: CONNECT neat-iodine-05e.notion.site:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:04:08
+36: CONNECT google.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:04:27
+35: CONNECT beacons.gcp.gvt2.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:04:27
+37: CONNECT alive.github.com:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:04:59
+38: CONNECT exp.notion.so:443 HTTP/1.1 from 10.197.217.80 @ 2023-Mar-01 00:05:54

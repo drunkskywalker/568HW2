@@ -17,6 +17,7 @@ Danger log
 
 9. Gap between time is retrieved and time is used, causing minor time difference when calculating expire time.
 10. Requesting twice if revalidation responds with 200 OK, due to the method conducting the validation has no effective way to send the new response back to the client and ending the thread execution. 
+11. If max-age is 0, the proxy should re-validate the cache on every access, but there is chance that if 2 requests are made extremely close, one of the requests will have a change to directly use the cached respond without revalidation.
 
 
 
