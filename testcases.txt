@@ -8,11 +8,62 @@ websites:
 GET:
 
 http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx
+
 http://httpbin.org/forms/post
+
+The results are as follows:
+
+27: Requesting "GET http://httpbin.org/forms/post HTTP/1.1" from httpbin.org
+27: Received "HTTP/1.1 200 OK" from httpbin.org
+27: Responding "HTTP/1.1 200 OK"
+27: cached, expires at -1
+30: GET http://httpbin.org/forms/post HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 23:52:43
+30: in cache, valid
+30: Responding "HTTP/1.1 200 OK"
+
+http://httpbin.org/cache/0
+
+The results are as follows:
+
+37: GET http://httpbin.org/cache/0 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 23:59:38
+37: in cache, but expired at 2023-Feb-28 23:55:01
+37: NOTE re-validation with server
+37: GET http://httpbin.org/cache/0 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 23:59:38
+37: Received "HTTP/1.1 200 OK" from httpbin.org
+37: Requesting "GET http://httpbin.org/cache/0 HTTP/1.1" from httpbin.org
+37: Received "HTTP/1.1 200 OK" from httpbin.org
+37: Responding "HTTP/1.1 200 OK"
+37: cached, expires at 2023-Feb-28 23:59:38
+38: GET http://httpbin.org/cache/0 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 23:59:42
+38: in cache, but expired at 2023-Feb-28 23:59:38
+38: NOTE re-validation with server
+38: GET http://httpbin.org/cache/0 HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 23:59:42
+38: Received "HTTP/1.1 200 OK" from httpbin.org
+38: Requesting "GET http://httpbin.org/cache/0 HTTP/1.1" from httpbin.org
+38: Received "HTTP/1.1 200 OK" from httpbin.org
+38: Responding "HTTP/1.1 200 OK"
+38: cached, expires at 2023-Feb-28 23:59:42
+
 http://www-net.cs.umass.edu/wireshark-labs/Wireshark_HTTP_v8.0.pdf
+
 http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file1.html
+
+The results are as follows:
+
+7: GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file1.html HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 23:50:26
+7: in cache, valid
+7: Responding "HTTP/1.1 200 OK"
+20: GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file1.html HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 23:50:38
+20: in cache, valid
+20: Responding "HTTP/1.1 200 OK"
+21: GET http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file1.html HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 23:50:40
+21: in cache, valid
+21: Responding "HTTP/1.1 200 OK"
+
 http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file2.html
+
 http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file3.html
+
 http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file4.html
 
 POST:
@@ -26,6 +77,33 @@ https://www.youtube.com/watch?v=dIh1eOw0zV8&t=9s
 
 
 tools:
+
 server.py starts a small HTTP server locally that sends out responds based on requests.
 client.py sends requests to said server.
 the submitted version tests max-age and no-cache revalidation.
+
+The results are as follows:
+
+0: GET / HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 23:47:51
+0: not in cache
+0: Requesting "GET / HTTP/1.1" from 0.0.0.0
+0: Received "HTTP/1.1 200 OK" from 0.0.0.0
+0: Responding "HTTP/1.1 200 OK"
+0: cached, but requires re-validation
+1: GET / HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 23:47:51
+1: in cache, requires revalidation
+1: NOTE ETag: aaa
+1: NOTE re-validation with server
+1: GET / HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 23:47:51
+1: Received "HTTP/1.1 304 Not Modified" from 0.0.0.0
+1: NOTE 304: Not Modified, use cached result
+1: Responding "HTTP/1.1 200 OK"
+2: GET /a HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 23:47:51
+2: not in cache
+2: Requesting "GET /a HTTP/1.1" from 0.0.0.0
+2: Received "HTTP/1.1 200 OK" from 0.0.0.0
+2: Responding "HTTP/1.1 200 OK"
+2: cached, expires at -1
+3: GET /a HTTP/1.1 from 127.0.0.1 @ 2023-Feb-28 23:47:51
+3: in cache, valid
+3: Responding "HTTP/1.1 200 OK"

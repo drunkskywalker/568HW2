@@ -15,7 +15,6 @@ Cache::Cache(size_t capacity,
 }
 
 bool Cache::try_add(request<dynamic_body> & req, response<dynamic_body> & res) {
-
   pthread_rwlock_wrlock(cache_rwlock);
   string url = get_url(req);
   if (request_list.size() < capacity) {
@@ -25,7 +24,6 @@ bool Cache::try_add(request<dynamic_body> & req, response<dynamic_body> & res) {
     return true;
   }
   else {
-
     string old = request_list.front();
 
     response_map.erase(old);
@@ -75,19 +73,19 @@ string Cache::check_time(response<dynamic_body> & res) {
         if (ma == -1) {
           return "-1";
         }
-        
-        if (ma != -2) {      posix_time::time_duration d(0, 0, ma);
 
-      posix_time::ptime ex = res_date + d;
+        if (ma != -2) {
+          posix_time::time_duration d(0, 0, ma);
 
-        stringstream ss_re;
-        ss_re << ex;
-        return ss_re.str();
-      }
+          posix_time::ptime ex = res_date + d;
+
+          stringstream ss_re;
+          ss_re << ex;
+          return ss_re.str();
+        }
         break;
       }
     }
-
   }
 
   if (res.find("Expires") != res.end()) {
@@ -101,10 +99,9 @@ string Cache::check_time(response<dynamic_body> & res) {
     ss >> get_time(&tm, "%a, %d %b %Y %H:%M:%S %Z");
     ptime exp = ptime_from_tm(tm);
 
-      stringstream ss_re;
-      ss_re << exp;
-      return ss_re.str();
-    
+    stringstream ss_re;
+    ss_re << exp;
+    return ss_re.str();
   }
 
   return "0";
@@ -117,15 +114,15 @@ bool Cache::check_with_server(int id,
                               tcp::socket * server_sock) {
   // cout << res;
   if (res.find(field::last_modified) != res.end()) {
-  pthread_mutex_lock(log_lock);
-  lFile << id << ": NOTE last_modified: " << string(res.at("Last-Modified")) << endl;
-  pthread_mutex_unlock(log_lock);
+    pthread_mutex_lock(log_lock);
+    lFile << id << ": NOTE last_modified: " << string(res.at("Last-Modified")) << endl;
+    pthread_mutex_unlock(log_lock);
     req.set(field::if_modified_since, string(res.at("Last-Modified")));
   }
   if (res.find(field::etag) != res.end()) {
-  pthread_mutex_lock(log_lock);
-  lFile << id << ": NOTE ETag: " << string(res.at("ETag")) << endl;
-  pthread_mutex_unlock(log_lock);
+    pthread_mutex_lock(log_lock);
+    lFile << id << ": NOTE ETag: " << string(res.at("ETag")) << endl;
+    pthread_mutex_unlock(log_lock);
     req.set(beast::http::field::if_none_match, string(res.at("ETag")));
   }
 
@@ -161,13 +158,12 @@ bool Cache::check_with_server(int id,
   pthread_mutex_unlock(log_lock);
   if (res_new.result_int() == 304) {
     pthread_mutex_lock(log_lock);
-  lFile << id << ": NOTE 304: Not Modified, use cached result" << endl;
-  pthread_mutex_unlock(log_lock);
-  
+    lFile << id << ": NOTE 304: Not Modified, use cached result" << endl;
+    pthread_mutex_unlock(log_lock);
+
     return true;
   }
   else if (res_new.result_int() == 200) {
-
     return false;
   }
   return false;
@@ -209,12 +205,13 @@ bool Cache::check_store(int id,
   }
   string exptime = check_time(res);
 
-    if (exptime == "-1") {
+  if (exptime == "-1") {
     pthread_mutex_lock(log_lock);
     lFile << id << ": not cachable because Cache-Control max-age=-1" << endl;
     pthread_mutex_unlock(log_lock);
     return false;
   }
+
   else if (exptime != "0") {
     pthread_mutex_lock(log_lock);
     lFile << id << ": cached, expires at " << exptime << endl;
@@ -267,7 +264,7 @@ int Cache::check_read(int id,
     pthread_mutex_lock(log_lock);
     lFile << id << ": in cache, valid\n";
     pthread_mutex_unlock(log_lock);
-    
+
     //why is this unlock here??????
     //pthread_rwlock_unlock(cache_rwlock);
     return 0;
@@ -275,23 +272,22 @@ int Cache::check_read(int id,
 
   if (check_time(res) != "0") {
     istringstream ss(check_time(res));
-  locale loc(ss.getloc(), new posix_time::time_input_facet("%Y-%b-%d %H:%M:%S"));
-  ss.imbue(loc);
+    locale loc(ss.getloc(), new posix_time::time_input_facet("%Y-%b-%d %H:%M:%S"));
+    ss.imbue(loc);
     std::tm tm = {};
     ss >> get_time(&tm, "%Y-%b-%d %H:%M:%S");
     ptime exp = ptime_from_tm(tm);
     ptime now = second_clock::universal_time();
-    if (now >= exp){
-    pthread_mutex_lock(log_lock);
-    lFile << id << ": in cache, but expired at " << exp << endl;
-    pthread_mutex_unlock(log_lock);
-    
+    if (now >= exp) {
+      pthread_mutex_lock(log_lock);
+      lFile << id << ": in cache, but expired at " << exp << endl;
+      pthread_mutex_unlock(log_lock);
     }
     else {
-        pthread_mutex_lock(log_lock);
-    lFile << id << ": in cache, valid\n";
-    pthread_mutex_unlock(log_lock);
-    return 0;
+      pthread_mutex_lock(log_lock);
+      lFile << id << ": in cache, valid\n";
+      pthread_mutex_unlock(log_lock);
+      return 0;
     }
   }
 
